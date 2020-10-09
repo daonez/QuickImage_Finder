@@ -1,13 +1,14 @@
 import React from "react"
 //import UnsplashSearch from "./searchUnsplash"
 import PixabaySearch from "./searchPixabay"
+import Nav from "./Nav1"
 
 // console.log(REACT_APP_PIXABAY_API_KEY)
 
 const landing = () => {
   return (
     <div>
-      <h1>QuickPic Search</h1>
+      <Nav />
       <PixabaySearch />
       {/* <div>My Env: {REACT_APP_PIXABAY_API_KEY}</div> */}
     </div>
