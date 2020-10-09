@@ -22,6 +22,7 @@ export default function PixaSearch() {
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
+    //test
   }
 
   const handleAmount = (e) => {
