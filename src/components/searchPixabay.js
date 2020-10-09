@@ -1,9 +1,45 @@
 import React, { useState, useEffect } from "react"
+
+import { makeStyles } from "@material-ui/core/styles"
+import TextField from "@material-ui/core/TextField"
+import InputAdorment from "@material-ui/core/InputAdornment"
+import MenuItem from "@material-ui/core/MenuItem"
+import Select from "@material-ui/core/Select"
+import InputLabel from "@material-ui/core/InputLabel"
+import FormControl from "@material-ui/core/FormControl"
+
+import SearchIcon from "@material-ui/icons/Search"
+
 import axios from "axios"
 
-export default function PixaSearch() {
-  const API_KEY = "18611692-37b6c14c8603c596103e77a37"
-  const API_URL = "https://pixabay.com/api"
+import ImageResults from "./ImageResult"
+const { REACT_APP_PIXABAY_API_KEY } = process.env
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "75ch",
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}))
+
+export default function PixabaySearchBar() {
+  const classes = useStyles()
+  const pixabayURL = "https://pixabay.com/api"
+  const pixaAPI_KEY = REACT_APP_PIXABAY_API_KEY
 
   const [search, setSearch] = useState("")
   const [amount, setAmount] = useState("10")
@@ -14,28 +50,49 @@ export default function PixaSearch() {
       setImages([])
     } else {
       axios
-        .get(`${API_URL}/?key=${API_KEY}&q=${search}&image_type=photo&per_page=${amount}`)
+        .get(
+          `${pixabayURL}/?key=${pixaAPI_KEY}&q=${search}&image_type=photo&per_page=${amount}`
+        )
         .then((res) => setImages(res.data.hits))
         .catch((err) => console.log(err))
     }
-  }, [search, amount])
+  }, [amount, pixaAPI_KEY, search])
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value)
+  const handleChange = (e) => {
+    setAmount(e.target.value)
   }
 
-  const handleAmount = (e) => {
-    setAmount(e.target.value)
+  const handleTextChange = (e) => {
+    setSearch(e.target.value)
   }
 
   return (
     <div>
-      <input type="text" placeholder={"test-app"} value={search} onChange={handleSearch} />
-      <select value={amount} onChange={handleAmount}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-      </select>
+      <div className={classes.root}>
+        <TextField
+          name="search"
+          value={search}
+          onChange={handleTextChange}
+          className={classes.textField}
+          label="Search"
+          InputProps={{
+            startAdornment: (
+              <InputAdorment position="start">
+                <SearchIcon />
+              </InputAdorment>
+            ),
+          }}
+        />
+        <FormControl className={classes.formControl}>
+          <InputLabel>Amount</InputLabel>
+          <Select value={amount} onChange={handleChange}>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={20}>20</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+      <ImageResults images={images} />
     </div>
   )
 }
