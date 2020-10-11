@@ -1,9 +1,7 @@
 import React, { useState } from "react"
 import Unsplash, { toJson } from "unsplash-js"
 
-const unsplash = new Unsplash({
-  accessKey: "pSozK8G05_pE3EPbcjktVJ-S1tOupYVn7y3sSqyRtPs",
-})
+const unsplash = new Unsplash({})
 
 export default function UnsplashPhoto() {
   const [query, setQuery] = useState("")
