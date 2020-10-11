@@ -1,18 +1,12 @@
 import React from "react"
-//import UnsplashSearch from "./searchUnsplash"
-import PixabaySearch from "./searchPixabay"
-import Nav from "./Nav1"
+import NavBar from "components/NavBar"
 
-// console.log(REACT_APP_PIXABAY_API_KEY)
-
-const landing = () => {
+const Landing = () => {
   return (
     <div>
-      <Nav />
-      <PixabaySearch />
-      {/* <div>My Env: {REACT_APP_PIXABAY_API_KEY}</div> */}
+      <NavBar />
     </div>
   )
 }
 
-export default landing
+export default Landing

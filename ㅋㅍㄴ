@@ -1,3 +1,0 @@
-require('dotenv').config()
-
-REACT_APP_PIXABAY_API_KEY= 18611692-37b6c14c8603c596103e77a37
