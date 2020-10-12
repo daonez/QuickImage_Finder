@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ReactLogo from 'components/svg/pixabaylogo.svg'
-import webpPath from 'components/images/mountains_bg.webp'
+import Bg_Image from 'components/images/mountains_bg.webp'
 import axios from 'axios'
 import { PIXABAY_DEFAULT_URL } from 'api/PixabayApi'
 import ImageGrid from 'components/pixabay/ImageGrid'
@@ -14,7 +14,7 @@ export default function PixaSearch() {
     const imageSearch = async () => {
         try {
             const resp = await axios.get(`${PIXABAY_DEFAULT_URL}&q=${search}&image_type=photo`)
-            const result = resp.data
+            const result = resp.data.hits
             setImages(result)
             console.log(result)
         } catch (err) {
@@ -56,7 +56,7 @@ const SearchContainer = styled.div`
 
 const BackgroundImage = styled.div`
     border: 1px solid #000;
-    background-image: url(${webpPath});
+    background-image: url(${Bg_Image});
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

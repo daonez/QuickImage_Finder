@@ -14,23 +14,21 @@ const ImageGrid = ({ images }) => {
     }
 
     return (
-        <div>
-            <ul>
-                {images.map((img) => (
-                    <ul key={img.id}>
+        <button open={loadImage} onClose={handleClose}>
+            {images.map((img) => (
+                <p key={img.id} onClick={() => handleOpen(img.webformatURL)}>
+                    <ul>
                         <li>
-                            <img src={img.webwebformatURL} alt="" />
+                            <img src={img.webformatURL} alt="" />
                         </li>
                     </ul>
-                ))}
-            </ul>
+                </p>
+            ))}
 
-            <form open={loadImage} onClose={handleClose}>
-                <button onClick={handleOpen}>
-                    <img src={imageSize} alt="" style={{ width: '100%' }} />
-                </button>
-            </form>
-        </div>
+            <button onClick={handleOpen}>
+                <img src={imageSize} alt="" style={{ width: '100%' }} />
+            </button>
+        </button>
     )
 }
 
