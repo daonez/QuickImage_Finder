@@ -1,22 +1,21 @@
-import React from "react"
-import { Route, Switch } from "react-router"
-import { BrowserRouter as Routes } from "react-router-dom"
-import Landing from "../components/Landing"
-import PixabayAPI from "../components/pixabay/index"
+import React from 'react'
+import { Route, Switch } from 'react-router'
+import { BrowserRouter as Routes } from 'react-router-dom'
+import Landing from '../components/Landing'
 
 const Router = () => {
-  return (
-    <Routes>
-      <Switch>
-        <Route exact path="/">
-          <Landing />
-        </Route>
-        <Route path="/pixabay">
+    return (
+        <Routes>
+            <Switch>
+                <Route exact path="/">
+                    <Landing />
+                </Route>
+                {/* <Route path="/pixabay">
           <PixabayAPI />
-        </Route>
-      </Switch>
-    </Routes>
-  )
+        </Route> */}
+            </Switch>
+        </Routes>
+    )
 }
 
 export default Router
