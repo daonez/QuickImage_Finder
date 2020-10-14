@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 
 const ImageGrid = ({ images }) => {
     const [loadImage, setLoadImage] = useState(false)
@@ -14,22 +15,25 @@ const ImageGrid = ({ images }) => {
     }
 
     return (
-        <button open={loadImage} onClose={handleClose}>
-            {images.map((img) => (
-                <p key={img.id} onClick={() => handleOpen(img.webformatURL)}>
-                    <ul>
-                        <li>
-                            <img src={img.webformatURL} alt="" />
-                        </li>
-                    </ul>
-                </p>
-            ))}
-
-            <button onClick={handleOpen}>
-                <img src={imageSize} alt="" style={{ width: '100%' }} />
-            </button>
-        </button>
+        <Container>
+            <span open={loadImage} onClose={handleClose}>
+                {images.map((img) => (
+                    <p key={img.id} onClick={() => handleOpen(img.webformatURL)}>
+                        <ul>
+                            <li>
+                                <img src={img.webformatURL} alt="" />
+                            </li>
+                        </ul>
+                    </p>
+                ))}
+            </span>
+        </Container>
     )
 }
 
 export default ImageGrid
+
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+`
