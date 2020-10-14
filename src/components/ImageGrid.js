@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const ImageGrid = ({ images }) => {
+const ImageGrid = ({ images, pics }) => {
     const [loadImage, setLoadImage] = useState(false)
     const [imageSize, setImageSize] = useState('')
 

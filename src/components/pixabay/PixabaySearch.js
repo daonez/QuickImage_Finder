@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import ReactLogo from 'components/svg/pixabaylogo.svg'
-import Bg_Image from 'components/images/mountains_bg.webp'
+import ReactLogo from 'svg/pixabaylogo.svg'
+import Bg_Image from 'images/mountains_bg.webp'
 import axios from 'axios'
 import { PIXABAY_DEFAULT_URL } from 'api/PixabayApi'
-import ImageGrid from 'components/pixabay/ImageGrid'
+import ImageGrid from 'components/ImageGrid'
 
 export default function PixaSearch() {
     const [search, setSearch] = useState('')
@@ -44,6 +44,7 @@ export default function PixaSearch() {
                     </div>
                 </BackgroundImage>
             </SearchContainer>
+
             <ImageGrid images={images} />
         </>
     )
