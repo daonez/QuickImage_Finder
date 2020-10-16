@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import ReactLogo from 'svg/pixabaylogo.svg'
-import Bg_Image from 'images/mountains_bg.webp'
+// import ReactLogo from 'svg/pixabaylogo.svg'
+// import Bg_Image from 'images/mountains_bg.webp'
 import axios from 'axios'
 import { PIXABAY_DEFAULT_URL } from 'api/PixabayApi'
 import ImageGrid from 'components/ImageGrid'
 
-export default function PixaSearch() {
+export default function PixabaySearch() {
     const [search, setSearch] = useState('')
     const [amount, setAmount] = useState(10)
     const [images, setImages] = useState([])
@@ -14,8 +14,9 @@ export default function PixaSearch() {
     const imageSearch = async () => {
         try {
             const resp = await axios.get(`${PIXABAY_DEFAULT_URL}&q=${search}&image_type=photo`)
-            const result = resp.data.hits
-            setImages(result)
+            const result = resp.data
+            const result1 = resp.data.hits
+            // setImages(result)
             console.log(result)
         } catch (err) {
             // Handle Error Here
@@ -26,23 +27,23 @@ export default function PixaSearch() {
         setSearch(e.target.value)
         imageSearch()
     }
-    const handleAmount = (event) => {
-        setAmount(event.target.value)
+    const handleAmount = (e) => {
+        setAmount(e.target.value)
     }
     return (
         <>
             <SearchContainer>
-                <BackgroundImage>
+                {/* <BackgroundImage> */}
+                <div>
+                    {/* <Logo src={ReactLogo} /> */}
                     <div>
-                        <Logo src={ReactLogo} />
-                        <div>
-                            <input type="text" placeholder="hello" onChange={handleChange} />
-                            <select value={amount} onChange={handleAmount}>
-                                <option value="1">1</option>
-                            </select>
-                        </div>
+                        <input type="text" placeholder="hello" onChange={handleChange} />
+                        <select value={amount} onChange={handleAmount}>
+                            <option value="1">1</option>
+                        </select>
                     </div>
-                </BackgroundImage>
+                </div>
+                {/* </BackgroundImage> */}
             </SearchContainer>
 
             <ImageGrid images={images} />
@@ -55,18 +56,18 @@ const SearchContainer = styled.div`
     justify-content: center;
 `
 
-const BackgroundImage = styled.div`
-    border: 1px solid #000;
-    background-image: url(${Bg_Image});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 500px;
-`
+// const BackgroundImage = styled.div`
+//     border: 1px solid #000;
+//     background-image: url(${Bg_Image});
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     width: 100%;
+//     height: 500px;
+// `
 
-const Logo = styled.img`
-    width: 100%;
-    height: 100%;
-    margin: auto;
-`
+// const Logo = styled.img`
+//     width: 100%;
+//     height: 100%;
+//     margin: auto;
+// `

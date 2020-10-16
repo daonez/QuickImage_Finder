@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const ImageGrid = ({ images, pics }) => {
+const ImageGrid = ({ images }) => {
     const [loadImage, setLoadImage] = useState(false)
     const [imageSize, setImageSize] = useState('')
 
@@ -17,14 +17,12 @@ const ImageGrid = ({ images, pics }) => {
     return (
         <Container>
             <span open={loadImage} onClose={handleClose}>
-                {images.map((img) => (
-                    <p key={img.id} onClick={() => handleOpen(img.webformatURL)}>
-                        <ul>
-                            <li>
-                                <img src={img.webformatURL} alt="" />
-                            </li>
-                        </ul>
-                    </p>
+                {images.map((img, id) => (
+                    <ul key={id} onClick={() => handleOpen(img)}>
+                        <li>
+                            <img src={img} alt="" />
+                        </li>
+                    </ul>
                 ))}
             </span>
         </Container>
