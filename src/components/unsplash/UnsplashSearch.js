@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { UNSPLASH_API, UNSPLASH_DEFAULT_URL } from 'api/Unsplash'
+import { UNSPLASH_DEFAULT_URL } from 'api'
 import axios from 'axios'
 import ImageGrid from 'components/ImageGrid'
 
