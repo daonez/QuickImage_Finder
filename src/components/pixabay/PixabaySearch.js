@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-// import ReactLogo from 'svg/pixabaylogo.svg'
-// import Bg_Image from 'images/mountains_bg.webp'
 import axios from 'axios'
 import { PIXABAY_DEFAULT_URL } from 'api/PixabayApi'
 import ImageGrid from 'components/ImageGrid'
