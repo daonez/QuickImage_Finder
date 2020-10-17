@@ -9,6 +9,9 @@ export default function SearchImages() {
     const [search, setSearch] = useState('')
     const [images, setImages] = useState([])
 
+
+    //break function into two? function 1 axios.all, function2 set the images to state??
+    
     const UNSPLASH_DEFAULT_URL = `https://api.unsplash.com/search/photos?client_id=${UNSPLASH_API}&query=${search}&per_page=1&page=2&orientation=portrait`
     const PIXABAY_DEFAULT_URL = `https://pixabay.com/api/?key=${PIXABAY_API_KEY}&q=${search}&image_type=photo`
 
