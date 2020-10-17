@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { PIXABAY_DEFAULT_URL } from 'api/PixabayApi'
+// import { PIXABAY_DEFAULT_URL } from 'api/PixabayApi'
 import ImageGrid from 'components/ImageGrid'
 
 export default function PixabaySearch() {
@@ -9,22 +9,10 @@ export default function PixabaySearch() {
     const [amount, setAmount] = useState(10)
     const [images, setImages] = useState([])
 
-    const imageSearch = async () => {
-        try {
-            const resp = await axios.get(`${PIXABAY_DEFAULT_URL}&q=${search}&image_type=photo`)
-            const result = resp.data
-            const result1 = resp.data.hits
-            // setImages(result)
-            console.log(result)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err)
-        }
-    }
-    const handleChange = (e) => {
-        setSearch(e.target.value)
-        imageSearch()
-    }
+    // const handleChange = (e) => {
+    //     setSearch(e.target.value)
+    //     imageSearch()
+    // }
     const handleAmount = (e) => {
         setAmount(e.target.value)
     }
@@ -35,7 +23,7 @@ export default function PixabaySearch() {
                 <div>
                     {/* <Logo src={ReactLogo} /> */}
                     <div>
-                        <input type="text" placeholder="hello" onChange={handleChange} />
+                        {/* <input type="text" placeholder="hello" onChange={handleChange} /> */}
                         <select value={amount} onChange={handleAmount}>
                             <option value="1">1</option>
                         </select>

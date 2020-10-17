@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-
+import SearchImages from 'api/index'
 
 const SearchBar = () => {
     return (
         <div>
-            <input type="text" placeholder="search" />
-            <button>Click me </button>
+            <SearchImages />
         </div>
     )
 }
