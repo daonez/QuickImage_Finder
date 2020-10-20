@@ -19,12 +19,18 @@ export default function SearchImages() {
             console.log(error)
         }
     }
+    const handleInput = (e) => {
+        setTimeout(() => {
+            console.log('hello')
+            console.log('hello22')
+        }, 1000)
+    }
     const handleSearch = (e) => {
-        setSearch(e.target.value)
-        console.log(e.target.value)
-        // console.log(PixabaySearchAPI(e.target.value))
-        // console.log(UnsplashSearchAPI(e.target.value))
-        console.log(CombineAPI(e.target.value))
+        // setSearch(e.target.value)
+        // console.log(e.target.value)
+        // // console.log(PixabaySearchAPI(e.target.value))
+        // // console.log(UnsplashSearchAPI(e.target.value))
+        // console.log(CombineAPI(e.target.value))
     }
 
     const handleImage = (e) => {
@@ -37,7 +43,7 @@ export default function SearchImages() {
             <SearchBoxContainer>
                 {/* <h1>Search Your Images</h1> */}
                 <div>
-                    <SearchBar type="text" placeholder="search" onChange={handleSearch} />
+                    <SearchBar type="text" placeholder="search" onChange={handleInput} />
                     <button onClick={handleImage}>Click</button>
                 </div>
             </SearchBoxContainer>
