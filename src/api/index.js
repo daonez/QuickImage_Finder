@@ -5,23 +5,24 @@ const { REACT_APP_PIXABAY_API_KEY, REACT_APP_UNSPLASH_API_KEY } = process.env
 const PIXABAY_URL = `https://pixabay.com/api/?key=${REACT_APP_PIXABAY_API_KEY}`
 const UNSPLASH_URL = `https://api.unsplash.com/search/photos?client_id=${REACT_APP_UNSPLASH_API_KEY}`
 
+
 export const UnsplashSearchAPI = async (query) => {
     try {
         const res = await axios.get(
             `${UNSPLASH_URL}&query=${query}&per_page=5&page=2&orientation=portrait`
         )
         const { data } = res
-        console.log(data)
+        // console.log(data)
 
         const { results } = data
 
-        console.log(results)
+        // console.log(results)
         const getImages = results.map((pics) => {
             return pics.urls.regular
         })
 
-        console.log(getImages)
-        // return getImages
+        // console.log(getImages)
+        return getImages
     } catch (error) {
         console.log(error)
     }
@@ -34,12 +35,12 @@ export const PixabaySearchAPI = async (query) => {
         // console.log(data)
 
         const images = data.hits
-        console.log(images)
+        // console.log(images)
 
         const getImages = images.map((pics) => {
             return pics.webformatURL
         })
-        console.log(getImages)
+        // console.log(getImages)
         return getImages
     } catch (err) {
         // Handle Error Here
