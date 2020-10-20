@@ -1,32 +1,44 @@
-import React, { useState } from 'react'
-import { handleAPI } from 'api'
+import React, { useState, useEffect } from 'react'
+import { PixabaySearchAPI, UnsplashSearchAPI } from 'api'
 import styled from 'styled-components'
-import ImageGrid from 'components/ImageGrid'
+// import ImageGrid from 'components/ImageGrid'
 
 export default function SearchImages() {
     const [search, setSearch] = useState('')
     const [images, setImages] = useState([])
 
-    const oneSearch = async (e) => {
-        // const keyword = await handleAPI(e.target.value)
-        // setSearch(keyword)
+    // useEffect(
+    //     (search) => {
+    //         const handleImages = async (e) => {
+    //             const Images = await PixabaySearchAPI(e)
+    //             setImages(Images)
+    //         }
+    //         handleImages()
+    //     },
+    //     [search]
+    // )
+
+    const handleSearch = (e) => {
         setSearch(e.target.value)
-    }
-    const printImages = async (e) => {
-        const searchResults = await handleAPI(e.target.value)
-        setImages(searchResults)
+        console.log(e.target.value)
+        // console.log(PixabaySearchAPI(e.target.value))
+        console.log(UnsplashSearchAPI(e.target.value))
     }
 
+    const handleImage = (e) => {
+        setImages(e.target.value)
+    }
+    console.log(images)
     return (
         <>
             <SearchBoxContainer>
                 {/* <h1>Search Your Images</h1> */}
                 <div>
-                    <SearchBar type="text" placeholder="search" onChange={oneSearch} />
-                    <button onClick={printImages}>Click</button>
+                    <SearchBar type="text" placeholder="search" onChange={handleSearch} />
+                    <button onClick={handleImage}>Click</button>
                 </div>
             </SearchBoxContainer>
-            <ImageGrid images={images} />
+            {/* <ImageGrid images={images} /> */}
         </>
     )
 }
