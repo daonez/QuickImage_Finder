@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { UnsplashSearchAPI, PixabaySearchAPI } from 'api'
 import styled from 'styled-components'
 import ImageGrid from 'components/ImageGrid'
@@ -11,43 +11,48 @@ export default function SearchImages() {
         try {
             const getUnsplashAPI = await UnsplashSearchAPI(query)
             const getPixabayAPI = await PixabaySearchAPI(query)
-            const CombineResults = getUnsplashAPI.concat(getPixabayAPI)
-            // const CombineAPIS = [...getPixabayAPI]
-            // console.log(CombineAPIS)
-            setImages(CombineResults)
+            const ImageResults = await getPixabayAPI.concat(getUnsplashAPI)
+
+            const getImages = ImageResults.map((img) => {
+                return img
+            })
+
+            setImages(getImages)
         } catch (error) {
             console.log(error)
         }
     }
-    const handleInput = (e) => {
-        setTimeout(() => {
-            console.log('hello')
-            console.log('hello22')
-        }, 1000)
-    }
+
     const handleSearch = (e) => {
-        // setSearch(e.target.value)
-        // console.log(e.target.value)
-        // // console.log(PixabaySearchAPI(e.target.value))
-        // // console.log(UnsplashSearchAPI(e.target.value))
-        // console.log(CombineAPI(e.target.value))
+        setSearch(e.target.value)
     }
-
-    const handleImage = (e) => {
-        CombineAPI(e.target.value)
+    const handleImages = async (e) => {
+        if (e.key === 'Enter') {
+            console.log('enter press here! ')
+            const printImages = await CombineAPI(e.target.value)
+            return printImages
+        }
     }
+    // const handleImages = (e) => {
+    //     setImages(e.target.value)
+    // }
 
-    console.log(images)
     return (
         <>
             <SearchBoxContainer>
                 {/* <h1>Search Your Images</h1> */}
                 <div>
-                    <SearchBar type="text" placeholder="search" onChange={handleInput} />
-                    <button onClick={handleImage}>Click</button>
+                    <SearchBar
+                        type="text"
+                        placeholder="search"
+                        value={search}
+                        onChange={handleSearch}
+                        onKeyPress={handleImages}
+                    />
+                    {/* <button onClick={handleImages}>Click</button> */}
+                    <ImageGrid images={images} />
                 </div>
             </SearchBoxContainer>
-            <ImageGrid images={images} />
         </>
     )
 }
