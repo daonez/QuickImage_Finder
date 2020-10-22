@@ -1,12 +1,13 @@
 import React from 'react'
 import NavBar from 'components/NavBar'
-import SearchImages from 'components/SearchBar'
+import SearchBar from 'components/SearchBar'
+import styled from 'styled-components'
 
 const Main = () => {
     return (
         <div>
             <NavBar />
-            <SearchImages />
+            {/* <SearchBar /> */}
         </div>
     )
 }
