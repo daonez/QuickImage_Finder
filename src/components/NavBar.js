@@ -9,7 +9,7 @@ export default function NavBar() {
     const [search, setSearch] = useState('')
     const [images, setImages] = useState([])
 
-    const handleSearch = (e) => {
+    const handleText = (e) => {
         setSearch(e.target.value)
     }
     const handleImages = async (e) => {
@@ -19,19 +19,32 @@ export default function NavBar() {
             return setImages(imageResults)
         }
     }
+
+    console.log(images)
     return (
         <>
             <NavBarContainer>
                 <LogoImage src={quickImageLogo} />
                 <div>
-                    <BsSearch />
-                    <SearchBar
-                        type="text"
-                        placeholder="search"
-                        value={search}
-                        onChange={handleSearch}
-                        onKeyPress={handleImages}
-                    />
+                    <SearchBarContainer>
+                        <div>
+                            <button
+                                type="submit"
+                                value={search}
+                                onClick={handleImages}
+                                onChange={handleText}>
+                                <SearchIcon />
+                            </button>
+
+                            <SearchBar
+                                type="text"
+                                placeholder="search"
+                                value={search}
+                                onChange={handleText}
+                                onKeyPress={handleImages}
+                            />
+                        </div>
+                    </SearchBarContainer>
                 </div>
             </NavBarContainer>
             <ImageGrid images={images} />
@@ -44,6 +57,9 @@ const NavBarContainer = styled.div`
     display: flex;
     font-size: 30px;
     width: 100%;
+`
+const SearchBarContainer = styled.div`
+    display: flex;
 `
 
 const LogoImage = styled.img`
@@ -60,4 +76,4 @@ const SearchBar = styled.input`
     margin: 20px;
 `
 
-const SearchIcon =styled(BsSsearch)
+const SearchIcon = styled(BsSearch)``
