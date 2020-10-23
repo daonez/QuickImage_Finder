@@ -9,7 +9,9 @@ const ImageGrid = ({ images }) => {
                     {images.map((img, id) => {
                         return (
                             <ImageBox key={id}>
-                                <Images src={img} alt="" />
+                                <a href={img.imageLinks} target="_blank">
+                                    <Images src={img.imageUrls} alt="" />
+                                </a>
                             </ImageBox>
                         )
                     })}

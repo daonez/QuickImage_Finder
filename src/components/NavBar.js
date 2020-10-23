@@ -20,6 +20,7 @@ export default function NavBar() {
             return setImages(imageResults)
         }
     }
+
     return (
         <>
             <NavBarContainer>
