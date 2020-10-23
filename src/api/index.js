@@ -5,7 +5,7 @@ const { REACT_APP_PIXABAY_API_KEY, REACT_APP_UNSPLASH_API_KEY } = process.env
 const PIXABAY_URL = `https://pixabay.com/api/?key=${REACT_APP_PIXABAY_API_KEY}`
 const UNSPLASH_URL = `https://api.unsplash.com/search/photos?client_id=${REACT_APP_UNSPLASH_API_KEY}`
 
-export const searchAllAPI = async (query) => {
+export const searchAll = async (query) => {
     try {
         const unsplashResults = await searchUnsplash(query)
         const pixabayResults = await searchPixabay(query)
@@ -16,21 +16,19 @@ export const searchAllAPI = async (query) => {
 }
 export const searchUnsplash = async (query) => {
     try {
-        const res = await axios.get(
-            `${UNSPLASH_URL}&query=${query}&per_page=5&page=2&orientation=portrait`
-        )
+        const res = await axios.get(`${UNSPLASH_URL}&query=${query}&per_page=5&page=1`)
         const { data } = res
         console.log(data)
 
         const { results } = data
 
         // console.log(results)
-        const getImages = results.map((pics) => {
+        const unsplashResults = results.map((pics) => {
             return pics.urls.regular
         })
 
         // console.log(getImages)
-        return getImages
+        return unsplashResults
     } catch (error) {
         console.log(error)
     }
@@ -42,14 +40,15 @@ export const searchPixabay = async (query) => {
         const { data } = res
         console.log(data)
 
-        const images = data.hits
+        const { hits } = data
+
         // console.log(images)
 
-        const getImages = images.map((pics) => {
+        const pixabayResults = hits.map((pics) => {
             return pics.webformatURL
         })
         // console.log(getImages)
-        return getImages
+        return pixabayResults
     } catch (err) {
         // Handle Error Here
         console.error(err)

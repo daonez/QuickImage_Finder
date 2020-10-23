@@ -1,16 +1,16 @@
-import React from 'react'
-import Main from 'components/Main'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import NavBar from 'components/NavBar'
 
-const App = () => {
+export default function App() {
     return (
-        <PageContainer>
-            <Main />
-        </PageContainer>
+        <div>
+            <PageContainer>
+                <NavBar />
+            </PageContainer>
+        </div>
     )
 }
-
-export default App
 
 const PageContainer = styled.div`
     width: 100%;

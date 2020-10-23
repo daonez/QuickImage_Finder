@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { searchAllAPI } from 'api'
 import styled from 'styled-components'
 import quickImageLogo from 'images/quickImage.png'
 import { BsSearch } from 'react-icons/bs'
+import { searchAll } from 'api'
 import ImageGrid from 'components/ImageGrid'
 
 export default function NavBar() {
@@ -12,38 +12,27 @@ export default function NavBar() {
     const handleText = (e) => {
         setSearch(e.target.value)
     }
+
     const handleImages = async (e) => {
         if (e.key === 'Enter') {
             console.log('enter press here! ')
-            const imageResults = await searchAllAPI(e.target.value)
+            const imageResults = await searchAll(e.target.value)
             return setImages(imageResults)
         }
     }
-
-    console.log(images)
     return (
         <>
             <NavBarContainer>
                 <LogoImage src={quickImageLogo} />
                 <div>
                     <SearchBarContainer>
-                        <div>
-                            <button
-                                type="submit"
-                                value={search}
-                                onClick={handleImages}
-                                onChange={handleText}>
-                                <SearchIcon />
-                            </button>
-
-                            <SearchBar
-                                type="text"
-                                placeholder="search"
-                                value={search}
-                                onChange={handleText}
-                                onKeyPress={handleImages}
-                            />
-                        </div>
+                        <SearchIcon />
+                        <Input
+                            value={search}
+                            placeholder="search"
+                            onChange={handleText}
+                            onKeyPress={handleImages}
+                        />
                     </SearchBarContainer>
                 </div>
             </NavBarContainer>
@@ -68,12 +57,12 @@ const LogoImage = styled.img`
     height: 84px;
 `
 
-const SearchBar = styled.input`
+const SearchIcon = styled(BsSearch)``
+
+const Input = styled.input`
     display: flex;
     border-radius: 40px;
     width: 574px;
     height: 40px;
     margin: 20px;
 `
-
-const SearchIcon = styled(BsSearch)``
