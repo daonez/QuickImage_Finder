@@ -47,14 +47,14 @@ export default function NavBar({ setImages }) {
                         onKeyPress={handleImages}
                     />
                 </SearchBarContainer>
+                <button type="button" name="prev" onClick={handlePages}>
+                    prev
+                </button>
+                <p value={pages}>pages {pages}</p>
+                <button type="button" name="next" onClick={handlePages}>
+                    next
+                </button>
             </NavBarContainer>
-            <p value={pages}>pages {pages}</p>
-            <button type="button" name="next" onClick={handlePages}>
-                next
-            </button>
-            <button type="button" name="prev" onClick={handlePages}>
-                prev
-            </button>
         </>
     )
 }
