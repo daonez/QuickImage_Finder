@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/quickImage.png'
-import { BsSearch } from 'react-icons/bs'
 import { searchAll } from 'api'
 
 export default function NavBar({ setImages }) {
     const [search, setSearch] = useState('')
+    const [pages, setPages] = useState(1)
+
     const handleText = (e) => {
-        setSearch(e.target.value)
+        if (e.target.name === 'search') {
+            setSearch(e.target.value)
+        }
     }
 
     const handleImages = async (e) => {
@@ -18,22 +21,40 @@ export default function NavBar({ setImages }) {
         }
     }
 
+    const handlePages = async (e) => {
+        if (e.target.name === 'next') {
+            return setPages(pages + 1)
+        } else if (e.target.name === 'prev' && pages > 1) {
+            return setPages(pages - 1)
+        } else {
+            return setPages(pages)
+        }
+    }
+
     return (
         <>
             <NavBarContainer>
                 <LogoImage src={quickImageLogo} />
-                <div>
-                    <SearchBarContainer>
-                        <SearchIcon />
-                        <Input
-                            value={search}
-                            placeholder="search"
-                            onChange={handleText}
-                            onKeyPress={handleImages}
-                        />
-                    </SearchBarContainer>
-                </div>
+
+                <SearchBarContainer>
+                    <button onChange={handleText} onClick={handleImages}>
+                        click
+                    </button>
+                    <Input
+                        value={search}
+                        placeholder="search"
+                        onChange={handleText}
+                        onKeyPress={handleImages}
+                    />
+                </SearchBarContainer>
             </NavBarContainer>
+            <p value={pages}>pages {pages}</p>
+            <button type="button" name="next" onClick={handlePages}>
+                next
+            </button>
+            <button type="button" name="prev" onClick={handlePages}>
+                prev
+            </button>
         </>
     )
 }
@@ -53,8 +74,6 @@ const LogoImage = styled.img`
     margin: 0 32px;
     height: 84px;
 `
-
-const SearchIcon = styled(BsSearch)``
 
 const Input = styled.input`
     display: flex;
