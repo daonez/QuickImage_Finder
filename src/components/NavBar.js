@@ -3,12 +3,9 @@ import styled from 'styled-components'
 import quickImageLogo from 'images/quickImage.png'
 import { BsSearch } from 'react-icons/bs'
 import { searchAll } from 'api'
-import ImageGrid from 'components/ImageGrid'
 
-export default function NavBar() {
+export default function NavBar({ setImages }) {
     const [search, setSearch] = useState('')
-    const [images, setImages] = useState([])
-
     const handleText = (e) => {
         setSearch(e.target.value)
     }
@@ -37,7 +34,6 @@ export default function NavBar() {
                     </SearchBarContainer>
                 </div>
             </NavBarContainer>
-            <ImageGrid images={images} />
         </>
     )
 }
