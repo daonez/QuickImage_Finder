@@ -19,18 +19,14 @@ export const searchAll = async (query) => {
 
 export const searchPages = async (query, page) => {
     try {
-        if (!undefined) {
+        if (page) {
             const unsplashResults = await searchUnsplash(query, page)
             const pixabayResults = await searchPixabay(query, page)
             const imageResults = [...pixabayResults, ...unsplashResults]
             console.log(imageResults)
             return imageResults
         } else {
-            const unsplashResults = await searchUnsplash(query, page)
-            const pixabayResults = await searchPixabay(query, page)
-            const imageResults = [...pixabayResults, ...unsplashResults]
-            console.log(imageResults)
-            return imageResults
+            return []
         }
     } catch (error) {
         console.log(error)

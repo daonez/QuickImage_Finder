@@ -4,20 +4,37 @@ import quickImageLogo from 'images/quickImage.png'
 import { searchAll, searchPages } from 'api'
 
 export default function NavBar({ setImages }) {
+    // const ref = useRef()
     const [search, setSearch] = useState('')
     const [pages, setPages] = useState(1)
 
+    // useEffect(() => {
+    //     ref.current.focus()
+    //     document.addEventListener('keydown', handleKeypress)
+
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeypress)
+    //     }
+    // }, [])
+
+    // const handleKeypress = () => {
+    //     ref.current.focus()
+    // }
     const handleText = (e) => {
         setSearch(e.target.value)
     }
 
     const handleImages = async (e) => {
-        if (e.key === 'Enter') {
-            console.log('enter press here! ')
-            const imageResults = await searchAll(e.target.value)
-            setSearch(search)
-            setPages(1)
-            return setImages(imageResults)
+        try {
+            if (e.key === 'Enter') {
+                console.log('enter press here! ')
+                const imageResults = await searchAll(e.target.value)
+                setSearch(search)
+                setPages(1)
+                return setImages(imageResults)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -33,9 +50,21 @@ export default function NavBar({ setImages }) {
             setPages(prevPage)
             setImages(imageResults)
         } else {
-            return setPages(1)
+            setPages(1)
         }
     }
+
+    // const handleActive = async (e) => {
+    //     if (e.target.name === 'prev' && pages >= 1) {
+    //         setIsActive(false)
+    //     } else {
+    //         const prevPage = pages - 1
+    //         const imageResults = await searchPages(search, prevPage)
+    //         setPages(prevPage)
+    //         setImages(imageResults)
+    //         setIsActive(true)
+    //     }
+    // }
 
     return (
         <>
@@ -49,15 +78,20 @@ export default function NavBar({ setImages }) {
                     <Input
                         value={search}
                         placeholder="search"
-                        onChange={handleText}
                         onKeyPress={handleImages}
+                        // ref={ref}
+                        minLength={1}
+                        onInputChange={handleText}
                     />
                 </SearchBarContainer>
-                <button type="button" name="prev" onClick={handlePages}>
+
+                <button type="button" name="prev" onClick={handlePages} value={pages}>
                     prev
                 </button>
+
                 <p value={pages}>pages {pages}</p>
-                <button type="button" name="next" onClick={handlePages}>
+
+                <button type="button" name="next" onClick={handlePages} value={pages}>
                     next
                 </button>
             </NavBarContainer>
