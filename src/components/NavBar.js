@@ -1,43 +1,100 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/quickImage.png'
-import { BsSearch } from 'react-icons/bs'
-import { searchAll } from 'api'
-import ImageGrid from 'components/ImageGrid'
+import { searchAll, searchPages } from 'api'
 
-export default function NavBar() {
+export default function NavBar({ setImages }) {
+    // const ref = useRef()
     const [search, setSearch] = useState('')
-    const [images, setImages] = useState([])
+    const [pages, setPages] = useState(1)
 
+    // useEffect(() => {
+    //     ref.current.focus()
+    //     document.addEventListener('keydown', handleKeypress)
+
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeypress)
+    //     }
+    // }, [])
+
+    // const handleKeypress = () => {
+    //     ref.current.focus()
+    // }
     const handleText = (e) => {
         setSearch(e.target.value)
     }
 
     const handleImages = async (e) => {
-        if (e.key === 'Enter') {
-            console.log('enter press here! ')
-            const imageResults = await searchAll(e.target.value)
-            return setImages(imageResults)
+        try {
+            if (e.key === 'Enter') {
+                console.log('enter press here! ')
+                const imageResults = await searchAll(e.target.value)
+                setSearch(search)
+                setPages(1)
+                return setImages(imageResults)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
+
+    const handlePages = async (e) => {
+        if (e.target.name === 'next') {
+            const nextPage = pages + 1
+            const imageResults = await searchPages(search, nextPage)
+            setPages(nextPage)
+            setImages(imageResults)
+        } else if (e.target.name === 'prev') {
+            const prevPage = pages - 1
+            const imageResults = await searchPages(search, prevPage)
+            setPages(prevPage)
+            setImages(imageResults)
+        } else {
+            setPages(1)
+        }
+    }
+
+    // const handleActive = async (e) => {
+    //     if (e.target.name === 'prev' && pages >= 1) {
+    //         setIsActive(false)
+    //     } else {
+    //         const prevPage = pages - 1
+    //         const imageResults = await searchPages(search, prevPage)
+    //         setPages(prevPage)
+    //         setImages(imageResults)
+    //         setIsActive(true)
+    //     }
+    // }
 
     return (
         <>
             <NavBarContainer>
                 <LogoImage src={quickImageLogo} />
-                <div>
-                    <SearchBarContainer>
-                        <SearchIcon />
-                        <Input
-                            value={search}
-                            placeholder="search"
-                            onChange={handleText}
-                            onKeyPress={handleImages}
-                        />
-                    </SearchBarContainer>
-                </div>
+
+                <SearchBarContainer>
+                    <button onChange={handleText} onClick={handleImages}>
+                        click
+                    </button>
+                    <Input
+                        value={search}
+                        placeholder="search"
+                        onKeyPress={handleImages}
+                        // ref={ref}
+                        minLength={1}
+                        onInputChange={handleText}
+                    />
+                </SearchBarContainer>
+
+                <button type="button" name="prev" onClick={handlePages} value={pages}>
+                    prev
+                </button>
+
+                <p value={pages}>pages {pages}</p>
+
+                <button type="button" name="next" onClick={handlePages} value={pages}>
+                    next
+                </button>
             </NavBarContainer>
-            <ImageGrid images={images} />
         </>
     )
 }
@@ -57,8 +114,6 @@ const LogoImage = styled.img`
     margin: 0 32px;
     height: 84px;
 `
-
-const SearchIcon = styled(BsSearch)``
 
 const Input = styled.input`
     display: flex;

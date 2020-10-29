@@ -10,40 +10,62 @@ export const searchAll = async (query) => {
         const unsplashResults = await searchUnsplash(query)
         const pixabayResults = await searchPixabay(query)
         const imageResults = [...pixabayResults, ...unsplashResults]
-        // console.log(imageResults)
+        console.log(imageResults)
         return imageResults
     } catch (error) {
         console.log(error)
     }
 }
-export const searchUnsplash = async (query) => {
+
+export const searchPages = async (query, page) => {
     try {
-        const res = await axios.get(`${UNSPLASH_URL}&query=${query}&per_page=5&page=1`)
-        const { data } = res
-        // console.log(data)
-
-        const { results } = data
-
-        // console.log(results)
-        const unsplashResults = results.map((pics) => {
-            const showImages = {
-                imageLinks: pics.links.html,
-                imageUrls: pics.urls.regular
-            }
-
-            return showImages
-        })
-
-        // console.log(unsplashResults)
-        return unsplashResults
+        if (page) {
+            const unsplashResults = await searchUnsplash(query, page)
+            const pixabayResults = await searchPixabay(query, page)
+            const imageResults = [...pixabayResults, ...unsplashResults]
+            console.log(imageResults)
+            return imageResults
+        } else {
+            return []
+        }
     } catch (error) {
         console.log(error)
     }
 }
 
-export const searchPixabay = async (query) => {
+export const searchUnsplash = async (query, pages = 1) => {
     try {
-        const res = await axios.get(`${PIXABAY_URL}&q=${query}&image_type=photo`)
+        const res = await axios.get(`${UNSPLASH_URL}&query=${query}&per_page=5&page=${pages}`)
+        const { data } = res
+        // console.log(data)
+
+        const { results } = data
+
+        if (results) {
+            const unsplashResults = results.map((pics) => {
+                const showImages = {
+                    imageLinks: pics.links.html,
+                    imageUrls: pics.urls.regular
+                }
+
+                return showImages
+            })
+            console.log(unsplashResults)
+            return unsplashResults
+        } else {
+            return []
+        }
+        // console.log(results)
+
+        // console.log(unsplashResults)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const searchPixabay = async (query, pages = 1) => {
+    try {
+        const res = await axios.get(`${PIXABAY_URL}&q=${query}&image_type=photo&page=${pages}`)
         const { data } = res
         // console.log(data)
 
@@ -51,17 +73,20 @@ export const searchPixabay = async (query) => {
 
         // console.log(hits)
 
-        const pixabayResults = hits.map((pics) => {
-            const showImages = {
-                imageLinks: pics.pageURL,
-                imageUrls: pics.webformatURL
-            }
+        if (hits) {
+            const pixabayResults = hits.map((pics) => {
+                const showImages = {
+                    imageLinks: pics.pageURL,
+                    imageUrls: pics.webformatURL
+                }
 
-            return showImages
-        })
-
-        // console.log(pixabayResults)
-        return pixabayResults
+                return showImages
+            })
+            console.log(pixabayResults)
+            return pixabayResults
+        } else {
+            return []
+        }
     } catch (err) {
         // Handle Error Here
         console.error(err)
