@@ -5,6 +5,7 @@ import ImageGrid from 'components/ImageGrid'
 
 export default function App() {
     const [images, setImages] = useState([])
+
     return (
         <div>
             <PageContainer>

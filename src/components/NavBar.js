@@ -1,33 +1,39 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/quickImage.png'
-import { searchAll } from 'api'
+import { searchAll, searchPages } from 'api'
 
 export default function NavBar({ setImages }) {
     const [search, setSearch] = useState('')
     const [pages, setPages] = useState(1)
 
     const handleText = (e) => {
-        if (e.target.name === 'search') {
-            setSearch(e.target.value)
-        }
+        setSearch(e.target.value)
     }
 
     const handleImages = async (e) => {
         if (e.key === 'Enter') {
             console.log('enter press here! ')
             const imageResults = await searchAll(e.target.value)
+            setSearch(search)
+            setPages(1)
             return setImages(imageResults)
         }
     }
 
     const handlePages = async (e) => {
         if (e.target.name === 'next') {
-            return setPages(pages + 1)
-        } else if (e.target.name === 'prev' && pages > 1) {
-            return setPages(pages - 1)
+            const nextPage = pages + 1
+            const imageResults = await searchPages(search, nextPage)
+            setPages(nextPage)
+            setImages(imageResults)
+        } else if (e.target.name === 'prev') {
+            const prevPage = pages - 1
+            const imageResults = await searchPages(search, prevPage)
+            setPages(prevPage)
+            setImages(imageResults)
         } else {
-            return setPages(pages)
+            return setPages(1)
         }
     }
 
