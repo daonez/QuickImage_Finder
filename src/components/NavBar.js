@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/quickImage.png'
-import { searchAll, searchPages } from 'api'
+import { searchAll } from 'api'
 
 export default function NavBar({ setImages }) {
     // const ref = useRef()
     const [search, setSearch] = useState('')
     const [pages, setPages] = useState(1)
-
+    const [active, setActive] = useState(true)
     // useEffect(() => {
     //     ref.current.focus()
     //     document.addEventListener('keydown', handleKeypress)
@@ -41,30 +41,18 @@ export default function NavBar({ setImages }) {
     const handlePages = async (e) => {
         if (e.target.name === 'next') {
             const nextPage = pages + 1
-            const imageResults = await searchPages(search, nextPage)
+            const imageResults = await searchAll(search, nextPage)
             setPages(nextPage)
             setImages(imageResults)
         } else if (e.target.name === 'prev') {
             const prevPage = pages - 1
-            const imageResults = await searchPages(search, prevPage)
+            const imageResults = await searchAll(search, prevPage)
             setPages(prevPage)
             setImages(imageResults)
         } else {
             setPages(1)
         }
     }
-
-    // const handleActive = async (e) => {
-    //     if (e.target.name === 'prev' && pages >= 1) {
-    //         setIsActive(false)
-    //     } else {
-    //         const prevPage = pages - 1
-    //         const imageResults = await searchPages(search, prevPage)
-    //         setPages(prevPage)
-    //         setImages(imageResults)
-    //         setIsActive(true)
-    //     }
-    // }
 
     return (
         <>
@@ -79,15 +67,15 @@ export default function NavBar({ setImages }) {
                         value={search}
                         placeholder="search"
                         onKeyPress={handleImages}
-                        // ref={ref}
-                        minLength={1}
-                        onInputChange={handleText}
+                        onChange={handleText}
                     />
                 </SearchBarContainer>
 
-                <button type="button" name="prev" onClick={handlePages} value={pages}>
-                    prev
-                </button>
+                {pages > 1 && (
+                    <button type="button" name="prev" onClick={handlePages} value={pages}>
+                        prev
+                    </button>
+                )}
 
                 <p value={pages}>pages {pages}</p>
 
