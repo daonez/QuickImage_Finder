@@ -5,31 +5,16 @@ const { REACT_APP_PIXABAY_API_KEY, REACT_APP_UNSPLASH_API_KEY } = process.env
 const PIXABAY_URL = `https://pixabay.com/api/?key=${REACT_APP_PIXABAY_API_KEY}`
 const UNSPLASH_URL = `https://api.unsplash.com/search/photos?client_id=${REACT_APP_UNSPLASH_API_KEY}`
 
-export const searchAll = async (query) => {
+export const searchAll = async (query, page = 1) => {
     try {
-        const unsplashResults = await searchUnsplash(query)
-        const pixabayResults = await searchPixabay(query)
+        const unsplashResults = await searchUnsplash(query, page)
+        const pixabayResults = await searchPixabay(query, page)
         const imageResults = [...pixabayResults, ...unsplashResults]
         console.log(imageResults)
         return imageResults
     } catch (error) {
         console.log(error)
-    }
-}
-
-export const searchPages = async (query, page) => {
-    try {
-        if (page) {
-            const unsplashResults = await searchUnsplash(query, page)
-            const pixabayResults = await searchPixabay(query, page)
-            const imageResults = [...pixabayResults, ...unsplashResults]
-            console.log(imageResults)
-            return imageResults
-        } else {
-            return []
-        }
-    } catch (error) {
-        console.log(error)
+        return []
     }
 }
 
@@ -41,25 +26,23 @@ export const searchUnsplash = async (query, pages = 1) => {
 
         const { results } = data
 
-        if (results) {
-            const unsplashResults = results.map((pics) => {
-                const showImages = {
-                    imageLinks: pics.links.html,
-                    imageUrls: pics.urls.regular
-                }
+        const unsplashResults = results.map((pics) => {
+            const showImages = {
+                imageLinks: pics.links.html,
+                imageUrls: pics.urls.regular
+            }
 
-                return showImages
-            })
-            console.log(unsplashResults)
-            return unsplashResults
-        } else {
-            return []
-        }
+            return showImages
+        })
+        console.log(unsplashResults)
+        return unsplashResults
+
         // console.log(results)
 
         // console.log(unsplashResults)
     } catch (error) {
         console.log(error)
+        return []
     }
 }
 
@@ -73,22 +56,19 @@ export const searchPixabay = async (query, pages = 1) => {
 
         // console.log(hits)
 
-        if (hits) {
-            const pixabayResults = hits.map((pics) => {
-                const showImages = {
-                    imageLinks: pics.pageURL,
-                    imageUrls: pics.webformatURL
-                }
+        const pixabayResults = hits.map((pics) => {
+            const showImages = {
+                imageLinks: pics.pageURL,
+                imageUrls: pics.webformatURL
+            }
 
-                return showImages
-            })
-            console.log(pixabayResults)
-            return pixabayResults
-        } else {
-            return []
-        }
+            return showImages
+        })
+        console.log(pixabayResults)
+        return pixabayResults
     } catch (err) {
         // Handle Error Here
         console.error(err)
+        return []
     }
 }
