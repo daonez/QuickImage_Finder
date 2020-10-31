@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import NavBar from 'components/NavBar'
 import ImageGrid from 'components/ImageGrid'
+// import Pages from 'components/pages'
 
 export default function App() {
     const [images, setImages] = useState([])
