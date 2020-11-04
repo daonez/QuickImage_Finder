@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import quickImageLogo from 'images/quickImage.png'
+import quickImageLogo from 'images/logo.png'
 import { searchAll, searchPageResults } from 'api'
-// import { BsSearch } from 'react-icons/bs'
+import { ReactComponent as leftBtn } from 'svg/left_btn.svg'
+import { ReactComponent as right_btn } from 'svg/right_btn.svg'
+import { ReactComponent as search } from 'svg/search.svg'
 
 export default function NavBar({ setImages }) {
     const [search, setSearch] = useState('')
@@ -61,7 +63,7 @@ export default function NavBar({ setImages }) {
 
                 <SearchBarContainer>
                     {search.length > 1 && (
-                        <Button value={search} onClick={handleClick}>
+                        <Button type="button" value={search} onClick={handleClick}>
                             Click
                         </Button>
                     )}
@@ -73,25 +75,34 @@ export default function NavBar({ setImages }) {
                     />
                 </SearchBarContainer>
             </NavBarContainer>
-            {pages > 1 && (
-                <button type="button" name="prev" onClick={handlePages} value={pages}>
-                    prev
-                </button>
-            )}
-            <p value={pages}>
-                pages {pages}/ {totalPages}
-            </p>
-            <h2 value={totalResults}>Results: {totalResults}</h2>
-
-            <button type="button" name="next" onClick={handlePages} value={pages}>
-                next
-            </button>
+            <ResultsContainer>
+                <TotalResults value={totalResults}>Results: {totalResults}</TotalResults>
+                <ButtonContainer>
+                    {pages > 1 && (
+                        <LeftIcon type="button" name="prev" onClick={handlePages} value={pages}>
+                            {/* <button type="button" name="prev" onClick={handlePages} value={pages}>
+                        </button> */}
+                        </LeftIcon>
+                    )}
+                    <Pages value={pages}>
+                        Pages {pages}/ {totalPages}
+                    </Pages>
+                    <button type="button" name="next" onClick={handlePages} value={pages}>
+                        next
+                    </button>
+                </ButtonContainer>
+            </ResultsContainer>
+            <div>
+                <div>
+                    <LeftIcon />
+                </div>
+                <ButtonImage />
+            </div>
         </>
     )
 }
 
 const NavBarContainer = styled.div`
-    background: orange;
     display: flex;
     font-size: 30px;
     width: 100%;
@@ -101,9 +112,12 @@ const SearchBarContainer = styled.div`
 `
 
 const LogoImage = styled.img`
-    width: 98px;
-    margin: 0 32px;
     height: 84px;
+`
+
+const ButtonImage = styled.div`
+    height: 100px;
+    width: 100%;
 `
 
 const Input = styled.input`
@@ -112,8 +126,38 @@ const Input = styled.input`
     width: 574px;
     height: 40px;
     margin: 20px;
+    background: #eeeeee;
 `
 const Button = styled.button`
     padding: 2px 5px;
     border-radius: 3px;
+`
+
+const ResultsContainer = styled.div`
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f6f6f6;
+`
+
+const TotalResults = styled.h2`
+    background-color: #f6f6f6;
+`
+
+const ButtonContainer = styled.div`
+    display: flex;
+    background-color: #f6f6f6;
+`
+
+const Pages = styled.p`
+    padding: 9px;
+    background-color: #f6f6f6;
+    font-size: 17px;
+    font-weight: bold;
+`
+
+const LeftIcon = styled(leftBtn)`
+    width: 100%;
+    height: 100px;
+    color: blue;
 `
