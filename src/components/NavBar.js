@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/logo.png'
 import { searchAll, searchPageResults } from 'api'
-import { ReactComponent as leftBtn } from 'svg/left_btn.svg'
-import { ReactComponent as right_btn } from 'svg/right_btn.svg'
-import { ReactComponent as search } from 'svg/search.svg'
+import { MdSearch, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 
 export default function NavBar({ setImages }) {
     const [search, setSearch] = useState('')
@@ -37,6 +35,9 @@ export default function NavBar({ setImages }) {
         setSearch(search)
         setPages(1)
         const imageResults = await searchAll(e.target.value)
+        const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
+        setTotalPages(totalPageRoundUp)
+        setTotalResults(imageResults.numOfResults)
         return setImages(imageResults.images)
     }
 
@@ -64,7 +65,7 @@ export default function NavBar({ setImages }) {
                 <SearchBarContainer>
                     {search.length > 1 && (
                         <Button type="button" value={search} onClick={handleClick}>
-                            Click
+                            <SearchIcon />
                         </Button>
                     )}
                     <Input
@@ -76,28 +77,21 @@ export default function NavBar({ setImages }) {
                 </SearchBarContainer>
             </NavBarContainer>
             <ResultsContainer>
-                <TotalResults value={totalResults}>Results: {totalResults}</TotalResults>
+                <Results value={totalResults}>Results: {totalResults}</Results>
                 <ButtonContainer>
                     {pages > 1 && (
-                        <LeftIcon type="button" name="prev" onClick={handlePages} value={pages}>
-                            {/* <button type="button" name="prev" onClick={handlePages} value={pages}>
-                        </button> */}
-                        </LeftIcon>
+                        <button type="button" name="prev" onClick={handlePages} value={pages}>
+                            <LeftIcon />
+                        </button>
                     )}
                     <Pages value={pages}>
                         Pages {pages}/ {totalPages}
                     </Pages>
                     <button type="button" name="next" onClick={handlePages} value={pages}>
-                        next
+                        <RightIcon />
                     </button>
                 </ButtonContainer>
             </ResultsContainer>
-            <div>
-                <div>
-                    <LeftIcon />
-                </div>
-                <ButtonImage />
-            </div>
         </>
     )
 }
@@ -115,9 +109,8 @@ const LogoImage = styled.img`
     height: 84px;
 `
 
-const ButtonImage = styled.div`
-    height: 100px;
-    width: 100%;
+const SearchIcon = styled(MdSearch)`
+    pointer-events: none;
 `
 
 const Input = styled.input`
@@ -139,8 +132,13 @@ const ResultsContainer = styled.div`
     justify-content: space-between;
     background-color: #f6f6f6;
 `
-
-const TotalResults = styled.h2`
+const LeftIcon = styled(MdKeyboardArrowLeft)`
+    pointer-events: none;
+`
+const RightIcon = styled(MdKeyboardArrowRight)`
+    pointer-events: none;
+`
+const Results = styled.h2`
     background-color: #f6f6f6;
 `
 
@@ -154,10 +152,4 @@ const Pages = styled.p`
     background-color: #f6f6f6;
     font-size: 17px;
     font-weight: bold;
-`
-
-const LeftIcon = styled(leftBtn)`
-    width: 100%;
-    height: 100px;
-    color: blue;
 `
