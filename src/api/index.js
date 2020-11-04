@@ -27,7 +27,8 @@ export const searchPageResults = async (query, page = 1) => {
         const pixabayResults = await searchPixabay(query, page)
         // console.log(pixabayResults)
         const images = [...pixabayResults.pixabayImages, ...unsplashResults.unsplashImages]
-        return { images }
+        const numOfResults = unsplashResults.total + pixabayResults.totalHits
+        return { images, numOfResults }
     } catch (error) {
         console.log(error)
         return []
