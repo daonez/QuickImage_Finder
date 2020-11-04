@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/logo.png'
 import { searchAll, searchPageResults } from 'api'
-import { ReactComponent as leftBtn } from 'svg/left_btn.svg'
-import { ReactComponent as right_btn } from 'svg/right_btn.svg'
-import { ReactComponent as search } from 'svg/search.svg'
+import { MdSearch, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 
 export default function NavBar({ setImages }) {
     const [search, setSearch] = useState('')
@@ -37,6 +35,9 @@ export default function NavBar({ setImages }) {
         setSearch(search)
         setPages(1)
         const imageResults = await searchAll(e.target.value)
+        const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
+        setTotalPages(totalPageRoundUp)
+        setTotalResults(imageResults.numOfResults)
         return setImages(imageResults.images)
     }
 
@@ -44,11 +45,13 @@ export default function NavBar({ setImages }) {
         if (e.target.name === 'next') {
             const nextPage = pages + 1
             const imageResults = await searchPageResults(search, nextPage)
+            setTotalResults(imageResults.numOfResults)
             setPages(nextPage)
             setImages(imageResults.images)
         } else if (e.target.name === 'prev') {
             const prevPage = pages - 1
             const imageResults = await searchPageResults(search, prevPage)
+            setTotalResults(imageResults.numOfResults)
             setPages(prevPage)
             setImages(imageResults.images)
         } else {
@@ -62,11 +65,10 @@ export default function NavBar({ setImages }) {
                 <LogoImage src={quickImageLogo} />
 
                 <SearchBarContainer>
-                    {search.length > 1 && (
-                        <Button type="button" value={search} onClick={handleClick}>
-                            Click
-                        </Button>
-                    )}
+                    <SearchButton type="button" value={search} onClick={handleClick}>
+                        <SearchIcon />
+                    </SearchButton>
+
                     <Input
                         value={search}
                         placeholder="search"
@@ -76,28 +78,21 @@ export default function NavBar({ setImages }) {
                 </SearchBarContainer>
             </NavBarContainer>
             <ResultsContainer>
-                <TotalResults value={totalResults}>Results: {totalResults}</TotalResults>
+                <Results value={totalResults}>Results: {totalResults}</Results>
                 <ButtonContainer>
                     {pages > 1 && (
-                        <LeftIcon type="button" name="prev" onClick={handlePages} value={pages}>
-                            {/* <button type="button" name="prev" onClick={handlePages} value={pages}>
-                        </button> */}
-                        </LeftIcon>
+                        <ArrowButton type="button" name="prev" onClick={handlePages} value={pages}>
+                            <LeftIcon />
+                        </ArrowButton>
                     )}
                     <Pages value={pages}>
                         Pages {pages}/ {totalPages}
                     </Pages>
-                    <button type="button" name="next" onClick={handlePages} value={pages}>
-                        next
-                    </button>
+                    <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
+                        <RightIcon />
+                    </ArrowButton>
                 </ButtonContainer>
             </ResultsContainer>
-            <div>
-                <div>
-                    <LeftIcon />
-                </div>
-                <ButtonImage />
-            </div>
         </>
     )
 }
@@ -115,9 +110,11 @@ const LogoImage = styled.img`
     height: 84px;
 `
 
-const ButtonImage = styled.div`
-    height: 100px;
-    width: 100%;
+const SearchIcon = styled(MdSearch)`
+    pointer-events: none;
+    background: #eeeeee;
+    height: 33px;
+    width: 25px;
 `
 
 const Input = styled.input`
@@ -127,10 +124,21 @@ const Input = styled.input`
     height: 40px;
     margin: 20px;
     background: #eeeeee;
+    text-indent: 50px;
+    &:focus {
+        outline: 0;
+    }
 `
-const Button = styled.button`
-    padding: 2px 5px;
-    border-radius: 3px;
+const SearchButton = styled.button`
+    border: none;
+    position: relative;
+    left: 69px;
+    background: #eeeeee;
+    height: 0px;
+    top: 27px;
+    &:focus {
+        outline: 0;
+    }
 `
 
 const ResultsContainer = styled.div`
@@ -140,7 +148,7 @@ const ResultsContainer = styled.div`
     background-color: #f6f6f6;
 `
 
-const TotalResults = styled.h2`
+const Results = styled.h2`
     background-color: #f6f6f6;
 `
 
@@ -149,15 +157,34 @@ const ButtonContainer = styled.div`
     background-color: #f6f6f6;
 `
 
+const ArrowButton = styled.button`
+    color: black;
+    border-radius: 22px;
+    width: 51px;
+    border: none;
+    padding: 0;
+    background: #f6f6f6;
+    &:focus {
+        outline: 0;
+    }
+`
+const LeftIcon = styled(MdKeyboardArrowLeft)`
+    pointer-events: none;
+    font-size: 29px;
+    height: 33px;
+    border: none;
+    border-radius: 29px;
+`
+const RightIcon = styled(MdKeyboardArrowRight)`
+    pointer-events: none;
+    font-size: 29px;
+    height: 33px;
+    border: none;
+    border-radius: 29px;
+`
 const Pages = styled.p`
     padding: 9px;
     background-color: #f6f6f6;
     font-size: 17px;
     font-weight: bold;
-`
-
-const LeftIcon = styled(leftBtn)`
-    width: 100%;
-    height: 100px;
-    color: blue;
 `
