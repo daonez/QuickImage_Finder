@@ -3,12 +3,24 @@ import styled from 'styled-components'
 import quickImageLogo from 'images/logo.png'
 import { searchAll, searchPageResults } from 'api'
 import { MdSearch, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
-
-export default function NavBar({ setImages }) {
-    const [search, setSearch] = useState('')
-    const [pages, setPages] = useState(1)
-    const [totalPages, setTotalPages] = useState('')
-    const [totalResults, setTotalResults] = useState('')
+import Pagination from 'components/Pagination'
+export default function NavBar({
+    setImages,
+    totalPages,
+    totalResults,
+    setTotalPages,
+    setPages,
+    pages,
+    setTotalResults,
+    handlePages,
+    search,
+    setSearch,
+    setIsLoading
+}) {
+    // const [search, setSearch] = useState('')
+    // const [pages, setPages] = useState(1)
+    // const [totalPages, setTotalPages] = useState('')
+    // const [totalResults, setTotalResults] = useState('')
 
     const handleText = (e) => {
         setSearch(e.target.value)
@@ -16,6 +28,7 @@ export default function NavBar({ setImages }) {
 
     const handleImages = async (e) => {
         try {
+            setIsLoading(true)
             if (e.key === 'Enter') {
                 console.log('enter press here! ')
                 const imageResults = await searchAll(e.target.value)
@@ -24,6 +37,7 @@ export default function NavBar({ setImages }) {
                 const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
                 setTotalPages(totalPageRoundUp)
                 setTotalResults(imageResults.numOfResults)
+
                 return setImages(imageResults.images)
             }
         } catch (error) {
@@ -32,6 +46,7 @@ export default function NavBar({ setImages }) {
     }
 
     const handleClick = async (e) => {
+        setIsLoading(true)
         setSearch(search)
         setPages(1)
         const imageResults = await searchAll(e.target.value)
@@ -40,24 +55,23 @@ export default function NavBar({ setImages }) {
         setTotalResults(imageResults.numOfResults)
         return setImages(imageResults.images)
     }
-
-    const handlePages = async (e) => {
-        if (e.target.name === 'next') {
-            const nextPage = pages + 1
-            const imageResults = await searchPageResults(search, nextPage)
-            setTotalResults(imageResults.numOfResults)
-            setPages(nextPage)
-            setImages(imageResults.images)
-        } else if (e.target.name === 'prev') {
-            const prevPage = pages - 1
-            const imageResults = await searchPageResults(search, prevPage)
-            setTotalResults(imageResults.numOfResults)
-            setPages(prevPage)
-            setImages(imageResults.images)
-        } else {
-            setPages(1)
-        }
-    }
+    // const handlePages = async (e) => {
+    //     if (e.target.name === 'next') {
+    //         const nextPage = pages + 1
+    //         const imageResults = await searchPageResults(search, nextPage)
+    //         setTotalResults(imageResults.numOfResults)
+    //         setPages(nextPage)
+    //         setImages(imageResults.images)
+    //     } else if (e.target.name === 'prev') {
+    //         const prevPage = pages - 1
+    //         const imageResults = await searchPageResults(search, prevPage)
+    //         setTotalResults(imageResults.numOfResults)
+    //         setPages(prevPage)
+    //         setImages(imageResults.images)
+    //     } else {
+    //         setPages(1)
+    //     }
+    // }
 
     return (
         <>
@@ -77,6 +91,19 @@ export default function NavBar({ setImages }) {
                     />
                 </SearchBarContainer>
             </NavBarContainer>
+            <Pagination
+                setPages={setPages}
+                pages={pages}
+                setImages={setImages}
+                setTotalPages={setTotalPages}
+                setTotalResults={setTotalResults}
+                onClick={handlePages}
+                totalPages={totalPages}
+                totalResults={totalResults}
+                setSearch={setSearch}
+                search={search}
+            />
+            {/* 
             <ResultsContainer>
                 <Results value={totalResults}>Results: {totalResults}</Results>
                 <ButtonContainer>
@@ -92,7 +119,7 @@ export default function NavBar({ setImages }) {
                         <RightIcon />
                     </ArrowButton>
                 </ButtonContainer>
-            </ResultsContainer>
+            </ResultsContainer> */}
         </>
     )
 }
@@ -141,50 +168,50 @@ const SearchButton = styled.button`
     }
 `
 
-const ResultsContainer = styled.div`
-    margin: 10px;
-    display: flex;
-    justify-content: space-between;
-    background-color: #f6f6f6;
-`
+// const ResultsContainer = styled.div`
+//     margin: 10px;
+//     display: flex;
+//     justify-content: space-between;
+//     background-color: #f6f6f6;
+// `
 
-const Results = styled.h2`
-    background-color: #f6f6f6;
-`
+// const Results = styled.h2`
+//     background-color: #f6f6f6;
+// `
 
-const ButtonContainer = styled.div`
-    display: flex;
-    background-color: #f6f6f6;
-`
+// const ButtonContainer = styled.div`
+//     display: flex;
+//     background-color: #f6f6f6;
+// `
 
-const ArrowButton = styled.button`
-    color: black;
-    border-radius: 22px;
-    width: 51px;
-    border: none;
-    padding: 0;
-    background: #f6f6f6;
-    &:focus {
-        outline: 0;
-    }
-`
-const LeftIcon = styled(MdKeyboardArrowLeft)`
-    pointer-events: none;
-    font-size: 29px;
-    height: 33px;
-    border: none;
-    border-radius: 29px;
-`
-const RightIcon = styled(MdKeyboardArrowRight)`
-    pointer-events: none;
-    font-size: 29px;
-    height: 33px;
-    border: none;
-    border-radius: 29px;
-`
-const Pages = styled.p`
-    padding: 9px;
-    background-color: #f6f6f6;
-    font-size: 17px;
-    font-weight: bold;
-`
+// const ArrowButton = styled.button`
+//     color: black;
+//     border-radius: 22px;
+//     width: 51px;
+//     border: none;
+//     padding: 0;
+//     background: #f6f6f6;
+//     &:focus {
+//         outline: 0;
+//     }
+// `
+// const LeftIcon = styled(MdKeyboardArrowLeft)`
+//     pointer-events: none;
+//     font-size: 29px;
+//     height: 33px;
+//     border: none;
+//     border-radius: 29px;
+// `
+// const RightIcon = styled(MdKeyboardArrowRight)`
+//     pointer-events: none;
+//     font-size: 29px;
+//     height: 33px;
+//     border: none;
+//     border-radius: 29px;
+// `
+// const Pages = styled.p`
+//     padding: 9px;
+//     background-color: #f6f6f6;
+//     font-size: 17px;
+//     font-weight: bold;
+// `
