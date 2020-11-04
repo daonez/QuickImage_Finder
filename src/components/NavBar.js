@@ -45,11 +45,13 @@ export default function NavBar({ setImages }) {
         if (e.target.name === 'next') {
             const nextPage = pages + 1
             const imageResults = await searchPageResults(search, nextPage)
+            setTotalResults(imageResults.numOfResults)
             setPages(nextPage)
             setImages(imageResults.images)
         } else if (e.target.name === 'prev') {
             const prevPage = pages - 1
             const imageResults = await searchPageResults(search, prevPage)
+            setTotalResults(imageResults.numOfResults)
             setPages(prevPage)
             setImages(imageResults.images)
         } else {
@@ -63,11 +65,10 @@ export default function NavBar({ setImages }) {
                 <LogoImage src={quickImageLogo} />
 
                 <SearchBarContainer>
-                    {search.length > 1 && (
-                        <Button type="button" value={search} onClick={handleClick}>
-                            <SearchIcon />
-                        </Button>
-                    )}
+                    <SearchButton type="button" value={search} onClick={handleClick}>
+                        <SearchIcon />
+                    </SearchButton>
+
                     <Input
                         value={search}
                         placeholder="search"
@@ -80,16 +81,16 @@ export default function NavBar({ setImages }) {
                 <Results value={totalResults}>Results: {totalResults}</Results>
                 <ButtonContainer>
                     {pages > 1 && (
-                        <button type="button" name="prev" onClick={handlePages} value={pages}>
+                        <ArrowButton type="button" name="prev" onClick={handlePages} value={pages}>
                             <LeftIcon />
-                        </button>
+                        </ArrowButton>
                     )}
                     <Pages value={pages}>
                         Pages {pages}/ {totalPages}
                     </Pages>
-                    <button type="button" name="next" onClick={handlePages} value={pages}>
+                    <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
                         <RightIcon />
-                    </button>
+                    </ArrowButton>
                 </ButtonContainer>
             </ResultsContainer>
         </>
@@ -111,6 +112,9 @@ const LogoImage = styled.img`
 
 const SearchIcon = styled(MdSearch)`
     pointer-events: none;
+    background: #eeeeee;
+    height: 33px;
+    width: 25px;
 `
 
 const Input = styled.input`
@@ -120,10 +124,21 @@ const Input = styled.input`
     height: 40px;
     margin: 20px;
     background: #eeeeee;
+    text-indent: 50px;
+    &:focus {
+        outline: 0;
+    }
 `
-const Button = styled.button`
-    padding: 2px 5px;
-    border-radius: 3px;
+const SearchButton = styled.button`
+    border: none;
+    position: relative;
+    left: 69px;
+    background: #eeeeee;
+    height: 0px;
+    top: 27px;
+    &:focus {
+        outline: 0;
+    }
 `
 
 const ResultsContainer = styled.div`
@@ -132,12 +147,7 @@ const ResultsContainer = styled.div`
     justify-content: space-between;
     background-color: #f6f6f6;
 `
-const LeftIcon = styled(MdKeyboardArrowLeft)`
-    pointer-events: none;
-`
-const RightIcon = styled(MdKeyboardArrowRight)`
-    pointer-events: none;
-`
+
 const Results = styled.h2`
     background-color: #f6f6f6;
 `
@@ -147,6 +157,31 @@ const ButtonContainer = styled.div`
     background-color: #f6f6f6;
 `
 
+const ArrowButton = styled.button`
+    color: black;
+    border-radius: 22px;
+    width: 51px;
+    border: none;
+    padding: 0;
+    background: #f6f6f6;
+    &:focus {
+        outline: 0;
+    }
+`
+const LeftIcon = styled(MdKeyboardArrowLeft)`
+    pointer-events: none;
+    font-size: 29px;
+    height: 33px;
+    border: none;
+    border-radius: 29px;
+`
+const RightIcon = styled(MdKeyboardArrowRight)`
+    pointer-events: none;
+    font-size: 29px;
+    height: 33px;
+    border: none;
+    border-radius: 29px;
+`
 const Pages = styled.p`
     padding: 9px;
     background-color: #f6f6f6;
