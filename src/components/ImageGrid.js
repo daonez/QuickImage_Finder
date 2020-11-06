@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { searchPageResults } from 'api'
+import { FaCircleNotch } from 'react-icons/fa'
+
 const ImageGrid = ({
     images,
     setIsLoading,
@@ -40,7 +42,6 @@ const ImageGrid = ({
                         )
                     })}
                 </ImageUL>
-
                 <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
                     NEXT <RightIcon />
                 </ArrowButton>
@@ -123,4 +124,8 @@ const RightIcon = styled(MdKeyboardArrowRight)`
     border: none;
     border-radius: 29px;
     background: #f6f6f6;
+`
+
+const LoadingIcon = styled(FaCircleNotch)`
+    color: green;
 `
