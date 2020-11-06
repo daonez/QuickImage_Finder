@@ -125,7 +125,3 @@ const RightIcon = styled(MdKeyboardArrowRight)`
     border-radius: 29px;
     background: #f6f6f6;
 `
-
-const LoadingIcon = styled(FaCircleNotch)`
-    color: green;
-`
