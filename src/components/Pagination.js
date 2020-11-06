@@ -67,35 +67,44 @@ const ButtonContainer = styled.div`
     display: flex;
     background-color: #f6f6f6;
 `
+const Pages = styled.p`
+    padding: 9px;
+    background-color: #f6f6f6;
+    font-size: 17px;
+    font-weight: 400;
+`
 
 const ArrowButton = styled.button`
     color: black;
-    border-radius: 22px;
-    width: 51px;
+    border-radius: 47px;
+    width: 41px;
+    height: 32px;
     border: none;
     padding: 0;
     background: #f6f6f6;
+    margin: auto;
     &:focus {
         outline: 0;
+    }
+    &:hover {
+        cursor: pointer;
+        background: white;
+        border: 1px solid;
     }
 `
 const LeftIcon = styled(MdKeyboardArrowLeft)`
     pointer-events: none;
     font-size: 29px;
-    height: 33px;
+    height: 30px;
     border: none;
     border-radius: 29px;
+    background: white;
 `
 const RightIcon = styled(MdKeyboardArrowRight)`
     pointer-events: none;
     font-size: 29px;
-    height: 33px;
+    height: 30px;
     border: none;
     border-radius: 29px;
-`
-const Pages = styled.p`
-    padding: 9px;
-    background-color: #f6f6f6;
-    font-size: 17px;
-    font-weight: bold;
+    background: white;
 `
