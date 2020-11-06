@@ -24,26 +24,26 @@ const ImageGrid = ({
     return (
         setIsLoading && (
             <Container>
-                <div>
-                    <ImageContainer>
-                        {images.map((img, id) => {
-                            return (
-                                <ImageBox key={id}>
+                <ImageUL>
+                    {images.map((img, id) => {
+                        return (
+                            <ImageList key={id}>
+                                <ImageParent>
                                     <a
                                         href={img.imageLinks}
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         <Images src={img.imageUrls} alt="" />
                                     </a>
-                                </ImageBox>
-                            )
-                        })}
-                    </ImageContainer>
+                                </ImageParent>
+                            </ImageList>
+                        )
+                    })}
+                </ImageUL>
 
-                    <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
-                        NEXT <RightIcon />
-                    </ArrowButton>
-                </div>
+                <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
+                    NEXT <RightIcon />
+                </ArrowButton>
             </Container>
         )
     )
@@ -56,24 +56,42 @@ const Container = styled.div`
     background: #ffffff;
 `
 
-const ImageContainer = styled.ul`
+const ImageUL = styled.ul`
     display: flex;
     flex-wrap: wrap;
-    padding: 0;
-    margin: 37px;
+    padding: 10px 0;
+    margin: auto;
     justify-content: center;
+    width: 100%;
 `
 
-const ImageBox = styled.li`
-    width: 30%;
+const ImageList = styled.li`
+    width: 100%;
     margin: -5px 5px 16px;
     padding: 0;
+    @media only screen and (min-width: 600px) {
+        width: 35%;
+    }
+`
+
+const ImageParent = styled.div`
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    &:hover {
+        border: 1px solid black;
+    }
 `
 const Images = styled.img`
     max-width: 100%;
     max-height: 100%;
     width: 100%;
     height: 100%;
+    &:hover {
+        cursor: pointer;
+
+        transform: scale(1.2);
+    }
 `
 
 const ArrowButton = styled.button`

@@ -60,13 +60,14 @@ export default function NavBar({
                     <SearchButton type="button" value={search} onClick={handleClick}>
                         <SearchIcon />
                     </SearchButton>
-
-                    <Input
-                        value={search}
-                        placeholder="search"
-                        onKeyPress={handleImages}
-                        onChange={handleText}
-                    />
+                    <InputContainer>
+                        <Input
+                            value={search}
+                            placeholder="search"
+                            onKeyPress={handleImages}
+                            onChange={handleText}
+                        />
+                    </InputContainer>
                 </SearchBarContainer>
             </NavBarContainer>
             <Pagination
@@ -92,6 +93,7 @@ const NavBarContainer = styled.div`
 `
 const SearchBarContainer = styled.div`
     display: flex;
+    width: 100%;
 `
 
 const LogoImage = styled.img`
@@ -105,10 +107,14 @@ const SearchIcon = styled(MdSearch)`
     width: 25px;
 `
 
+const InputContainer = styled.div`
+    display: flex;
+    width: 100%;
+`
 const Input = styled.input`
     display: flex;
     border-radius: 40px;
-    width: 574px;
+    width: 72%;
     height: 40px;
     margin: 20px;
     background: #eeeeee;
@@ -117,6 +123,9 @@ const Input = styled.input`
     font-family: inherit;
     &:focus {
         outline: 0;
+    }
+    @media only screen and (min-width: 600px) {
+        width: 50%;
     }
 `
 const SearchButton = styled.button`
