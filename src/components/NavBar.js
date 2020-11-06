@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import quickImageLogo from 'images/logo.png'
-import { searchAll, searchPageResults } from 'api'
-import { MdSearch, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+import { searchAll } from 'api'
+import { MdSearch } from 'react-icons/md'
 import Pagination from 'components/Pagination'
 export default function NavBar({
     setImages,
@@ -17,18 +17,13 @@ export default function NavBar({
     setSearch,
     setIsLoading
 }) {
-    // const [search, setSearch] = useState('')
-    // const [pages, setPages] = useState(1)
-    // const [totalPages, setTotalPages] = useState('')
-    // const [totalResults, setTotalResults] = useState('')
-
     const handleText = (e) => {
         setSearch(e.target.value)
     }
 
     const handleImages = async (e) => {
         try {
-            setIsLoading(true)
+            setIsLoading(false)
             if (e.key === 'Enter') {
                 console.log('enter press here! ')
                 const imageResults = await searchAll(e.target.value)
@@ -37,7 +32,7 @@ export default function NavBar({
                 const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
                 setTotalPages(totalPageRoundUp)
                 setTotalResults(imageResults.numOfResults)
-
+                setIsLoading(true)
                 return setImages(imageResults.images)
             }
         } catch (error) {
@@ -55,23 +50,6 @@ export default function NavBar({
         setTotalResults(imageResults.numOfResults)
         return setImages(imageResults.images)
     }
-    // const handlePages = async (e) => {
-    //     if (e.target.name === 'next') {
-    //         const nextPage = pages + 1
-    //         const imageResults = await searchPageResults(search, nextPage)
-    //         setTotalResults(imageResults.numOfResults)
-    //         setPages(nextPage)
-    //         setImages(imageResults.images)
-    //     } else if (e.target.name === 'prev') {
-    //         const prevPage = pages - 1
-    //         const imageResults = await searchPageResults(search, prevPage)
-    //         setTotalResults(imageResults.numOfResults)
-    //         setPages(prevPage)
-    //         setImages(imageResults.images)
-    //     } else {
-    //         setPages(1)
-    //     }
-    // }
 
     return (
         <>
@@ -82,13 +60,14 @@ export default function NavBar({
                     <SearchButton type="button" value={search} onClick={handleClick}>
                         <SearchIcon />
                     </SearchButton>
-
-                    <Input
-                        value={search}
-                        placeholder="search"
-                        onKeyPress={handleImages}
-                        onChange={handleText}
-                    />
+                    <InputContainer>
+                        <Input
+                            value={search}
+                            placeholder="search"
+                            onKeyPress={handleImages}
+                            onChange={handleText}
+                        />
+                    </InputContainer>
                 </SearchBarContainer>
             </NavBarContainer>
             <Pagination
@@ -103,23 +82,6 @@ export default function NavBar({
                 setSearch={setSearch}
                 search={search}
             />
-            {/* 
-            <ResultsContainer>
-                <Results value={totalResults}>Results: {totalResults}</Results>
-                <ButtonContainer>
-                    {pages > 1 && (
-                        <ArrowButton type="button" name="prev" onClick={handlePages} value={pages}>
-                            <LeftIcon />
-                        </ArrowButton>
-                    )}
-                    <Pages value={pages}>
-                        Pages {pages}/ {totalPages}
-                    </Pages>
-                    <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
-                        <RightIcon />
-                    </ArrowButton>
-                </ButtonContainer>
-            </ResultsContainer> */}
         </>
     )
 }
@@ -131,6 +93,7 @@ const NavBarContainer = styled.div`
 `
 const SearchBarContainer = styled.div`
     display: flex;
+    width: 100%;
 `
 
 const LogoImage = styled.img`
@@ -144,16 +107,25 @@ const SearchIcon = styled(MdSearch)`
     width: 25px;
 `
 
+const InputContainer = styled.div`
+    display: flex;
+    width: 100%;
+`
 const Input = styled.input`
     display: flex;
     border-radius: 40px;
-    width: 574px;
+    width: 72%;
     height: 40px;
     margin: 20px;
     background: #eeeeee;
     text-indent: 50px;
+    font-weight: 300;
+    font-family: inherit;
     &:focus {
         outline: 0;
+    }
+    @media only screen and (min-width: 600px) {
+        width: 50%;
     }
 `
 const SearchButton = styled.button`
@@ -161,57 +133,14 @@ const SearchButton = styled.button`
     position: relative;
     left: 69px;
     background: #eeeeee;
+    color: grey;
     height: 0px;
     top: 27px;
     &:focus {
         outline: 0;
     }
+    &:hover {
+        cursor: pointer;
+        color: black;
+    }
 `
-
-// const ResultsContainer = styled.div`
-//     margin: 10px;
-//     display: flex;
-//     justify-content: space-between;
-//     background-color: #f6f6f6;
-// `
-
-// const Results = styled.h2`
-//     background-color: #f6f6f6;
-// `
-
-// const ButtonContainer = styled.div`
-//     display: flex;
-//     background-color: #f6f6f6;
-// `
-
-// const ArrowButton = styled.button`
-//     color: black;
-//     border-radius: 22px;
-//     width: 51px;
-//     border: none;
-//     padding: 0;
-//     background: #f6f6f6;
-//     &:focus {
-//         outline: 0;
-//     }
-// `
-// const LeftIcon = styled(MdKeyboardArrowLeft)`
-//     pointer-events: none;
-//     font-size: 29px;
-//     height: 33px;
-//     border: none;
-//     border-radius: 29px;
-// `
-// const RightIcon = styled(MdKeyboardArrowRight)`
-//     pointer-events: none;
-//     font-size: 29px;
-//     height: 33px;
-//     border: none;
-//     border-radius: 29px;
-// `
-// const Pages = styled.p`
-//     padding: 9px;
-//     background-color: #f6f6f6;
-//     font-size: 17px;
-//     font-weight: bold;
-// `
