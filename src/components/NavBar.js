@@ -1,30 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
-import quickImageLogo from 'images/logo.png'
 import { searchAll } from 'api'
 import { MdSearch } from 'react-icons/md'
-import Pagination from 'components/Pagination'
+
 export default function NavBar({
     setImages,
-    totalPages,
-    totalResults,
     setTotalPages,
     setPages,
-    pages,
     setTotalResults,
-    handlePages,
     search,
     setSearch,
     setIsLoading
 }) {
     const handleText = (e) => {
-        setSearch(e.target.value)
+        if (e.target.value) {
+            setSearch(e.target.value)
+            setIsLoading(true)
+        }
     }
 
     const handleImages = async (e) => {
         try {
-            setIsLoading(false)
             if (e.key === 'Enter') {
+                setIsLoading(true)
                 console.log('enter press here! ')
                 const imageResults = await searchAll(e.target.value)
                 setSearch(search)
@@ -32,8 +30,8 @@ export default function NavBar({
                 const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
                 setTotalPages(totalPageRoundUp)
                 setTotalResults(imageResults.numOfResults)
-                setIsLoading(true)
-                return setImages(imageResults.images)
+                setImages(imageResults.images)
+                setIsLoading(false)
             }
         } catch (error) {
             console.log(error)
@@ -48,14 +46,14 @@ export default function NavBar({
         const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
         setTotalPages(totalPageRoundUp)
         setTotalResults(imageResults.numOfResults)
-        return setImages(imageResults.images)
+        setImages(imageResults.images)
+        setIsLoading(false)
     }
 
     return (
         <>
             <NavBarContainer>
-                <LogoImage src={quickImageLogo} />
-
+                <Title>Quick Image</Title>
                 <SearchBarContainer>
                     <SearchButton type="button" value={search} onClick={handleClick}>
                         <SearchIcon />
@@ -70,18 +68,6 @@ export default function NavBar({
                     </InputContainer>
                 </SearchBarContainer>
             </NavBarContainer>
-            <Pagination
-                setPages={setPages}
-                pages={pages}
-                setImages={setImages}
-                setTotalPages={setTotalPages}
-                setTotalResults={setTotalResults}
-                onClick={handlePages}
-                totalPages={totalPages}
-                totalResults={totalResults}
-                setSearch={setSearch}
-                search={search}
-            />
         </>
     )
 }
@@ -91,13 +77,17 @@ const NavBarContainer = styled.div`
     font-size: 30px;
     width: 100%;
 `
+
+const Title = styled.h2`
+    display: flex;
+    font-size: 30px;
+    margin: auto;
+    padding: 10px 9px;
+    text-align: center;
+`
 const SearchBarContainer = styled.div`
     display: flex;
     width: 100%;
-`
-
-const LogoImage = styled.img`
-    height: 84px;
 `
 
 const SearchIcon = styled(MdSearch)`

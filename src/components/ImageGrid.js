@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { searchPageResults } from 'api'
 import { FaCircleNotch } from 'react-icons/fa'
@@ -17,36 +17,46 @@ const ImageGrid = ({
     const handlePages = async (e) => {
         if (e.target.name === 'next') {
             const nextPage = pages + 1
+            setIsLoading(true)
             const imageResults = await searchPageResults(search, nextPage)
             setTotalResults(imageResults.numOfResults)
             setPages(nextPage)
             setImages(imageResults.images)
+            setIsLoading(false)
         }
     }
     return (
-        setIsLoading && (
-            <Container>
-                <ImageUL>
-                    {images.map((img, id) => {
-                        return (
-                            <ImageList key={id}>
-                                <ImageParent>
-                                    <a
-                                        href={img.imageLinks}
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        <Images src={img.imageUrls} alt="" />
-                                    </a>
-                                </ImageParent>
-                            </ImageList>
-                        )
-                    })}
-                </ImageUL>
-                <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
-                    NEXT <RightIcon />
-                </ArrowButton>
-            </Container>
-        )
+        <>
+            {isLoading ? (
+                <LoaderContainer>
+                    <Loader />
+                </LoaderContainer>
+            ) : (
+                <Container>
+                    <ImageContainer>
+                        <ImageUL>
+                            {images.map((img, id) => {
+                                return (
+                                    <ImageList key={id}>
+                                        <ImageParent>
+                                            <a
+                                                href={img.imageLinks}
+                                                target="_blank"
+                                                rel="noopener noreferrer">
+                                                <Images src={img.imageUrls} alt="" />
+                                            </a>
+                                        </ImageParent>
+                                    </ImageList>
+                                )
+                            })}
+                        </ImageUL>
+                    </ImageContainer>
+                    <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
+                        NEXT <RightIcon />
+                    </ArrowButton>
+                </Container>
+            )}
+        </>
     )
 }
 
@@ -57,42 +67,75 @@ const Container = styled.div`
     background: #ffffff;
 `
 
-const ImageUL = styled.ul`
+const LoaderContainer = styled.div`
     display: flex;
+`
+
+const spinAnimation = keyframes`
+  from  {
+          transform: rotate(0deg);
+        } to {
+          transform: rotate(360deg);
+        }
+      
+`
+const Loader = styled(FaCircleNotch)`
+    height: 100px;
+    width: 50px;
+    animation-name: ${spinAnimation};
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    background: none;
+    margin: auto;
+`
+
+const ImageContainer = styled.div`
+    display: flex;
+`
+
+const ImageUL = styled.ul`
+    /* display: flex;
+    align-items: auto; */
+    /* height: 250px; */
+    /* padding: 0; */
+    /* width: 1000%;
+    /* display: flex;
     flex-wrap: wrap;
     padding: 10px 0;
     margin: auto;
     justify-content: center;
-    width: 100%;
+    width: 100%; */
 `
 
 const ImageList = styled.li`
+    /* display: flex;
     width: 100%;
+    align-items: center; */
+    /* width: 100%;
     margin: -5px 5px 16px;
     padding: 0;
     @media only screen and (min-width: 600px) {
         width: 35%;
-    }
+    } */
 `
 
 const ImageParent = styled.div`
-    overflow: hidden;
+    /* overflow: hidden;
     width: 100%;
     height: 100%;
     &:hover {
         border: 1px solid black;
-    }
+    } */
 `
 const Images = styled.img`
-    max-width: 100%;
-    max-height: 100%;
+    /* max-width: 100%;
+    max-height: 100%; */
     width: 100%;
-    height: 100%;
-    &:hover {
+    /* &:hover {
         cursor: pointer;
-
         transform: scale(1.2);
-    }
+    }  */
 `
 
 const ArrowButton = styled.button`

@@ -8,9 +8,7 @@ const UNSPLASH_URL = `https://api.unsplash.com/search/photos?client_id=${REACT_A
 export const searchAll = async (query) => {
     try {
         const unsplashResults = await searchUnsplash(query)
-        // console.log(unsplashResults)
         const pixabayResults = await searchPixabay(query)
-        // console.log(pixabayResults)
         const images = [...pixabayResults.pixabayImages, ...unsplashResults.unsplashImages]
         const numOfResults = unsplashResults.total + pixabayResults.totalHits
         return { images, numOfResults }
@@ -23,9 +21,7 @@ export const searchAll = async (query) => {
 export const searchPageResults = async (query, page = 1) => {
     try {
         const unsplashResults = await searchUnsplash(query, page)
-        // console.log(unsplashResults)
         const pixabayResults = await searchPixabay(query, page)
-        // console.log(pixabayResults)
         const images = [...pixabayResults.pixabayImages, ...unsplashResults.unsplashImages]
         const numOfResults = unsplashResults.total + pixabayResults.totalHits
         return { images, numOfResults }
@@ -41,7 +37,6 @@ export const searchUnsplash = async (query, pages = 1) => {
             `${UNSPLASH_URL}&query=${query}&per_page=5&page=${pages}&orientation=squarish`
         )
         const { data } = res
-        // console.log(data)
 
         const { total, results } = data
 
@@ -51,7 +46,6 @@ export const searchUnsplash = async (query, pages = 1) => {
                 imageUrls: pics.urls.regular
             }
         })
-        // console.log(unsplashResults)
         return { total, unsplashImages }
     } catch (error) {
         console.log(error)
@@ -63,7 +57,6 @@ export const searchPixabay = async (query, pages = 1) => {
     try {
         const res = await axios.get(`${PIXABAY_URL}&q=${query}&image_type=photo&page=${pages}`)
         const { data } = res
-        // console.log(data)
 
         const { totalHits, hits } = data
 
@@ -73,7 +66,6 @@ export const searchPixabay = async (query, pages = 1) => {
                 imageUrls: pics.webformatURL
             }
         })
-        // console.log(pixabayResults)
         return { totalHits, pixabayImages }
     } catch (err) {
         // Handle Error Here

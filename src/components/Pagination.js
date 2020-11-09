@@ -7,27 +7,30 @@ export default function Pagination({
     setImages,
     totalPages,
     totalResults,
-    setTotalPages,
     setPages,
     pages,
     setTotalResults,
     search,
-    setSearch,
-    setIsLoading
+    setIsLoading,
+    isLoading
 }) {
     const handlePages = async (e) => {
         if (e.target.name === 'next') {
+            setIsLoading(true)
             const nextPage = pages + 1
             const imageResults = await searchPageResults(search, nextPage)
             setTotalResults(imageResults.numOfResults)
             setPages(nextPage)
+            setIsLoading(false)
             setImages(imageResults.images)
         } else if (e.target.name === 'prev') {
+            setIsLoading(true)
             const prevPage = pages - 1
             const imageResults = await searchPageResults(search, prevPage)
             setTotalResults(imageResults.numOfResults)
             setPages(prevPage)
             setImages(imageResults.images)
+            setIsLoading(false)
         } else {
             setPages(1)
         }

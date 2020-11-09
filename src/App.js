@@ -26,10 +26,23 @@ export default function App() {
                     totalResults={totalResults}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}></NavBar>
+                <Pagination
+                    pages={pages}
+                    setTotalResults={setTotalResults}
+                    setTotalPages={setTotalPages}
+                    setPages={setPages}
+                    totalPages={totalPages}
+                    totalResults={totalResults}
+                    setImages={setImages}
+                    search={search}
+                    setSearch={setSearch}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                />
                 <ImageGrid
                     images={images}
                     isLoading={isLoading}
-                    setIsLoading={isLoading}
+                    setIsLoading={setIsLoading}
                     search={search}
                     setSearch={setSearch}
                     setImages={setImages}
@@ -40,19 +53,19 @@ export default function App() {
                     totalPages={totalPages}
                     totalResults={totalResults}
                 />
-                {isLoading && (
-                    <Pagination
-                        pages={pages}
-                        setTotalResults={setTotalResults}
-                        setTotalPages={setTotalPages}
-                        setPages={setPages}
-                        totalPages={totalPages}
-                        totalResults={totalResults}
-                        setImages={setImages}
-                        search={search}
-                        setSearch={setSearch}
-                    />
-                )}
+                <Pagination
+                    pages={pages}
+                    setTotalResults={setTotalResults}
+                    setTotalPages={setTotalPages}
+                    setPages={setPages}
+                    totalPages={totalPages}
+                    totalResults={totalResults}
+                    setImages={setImages}
+                    search={search}
+                    setSearch={setSearch}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                />
             </PageContainer>
         </div>
     )
