@@ -70,7 +70,7 @@ export default function NavBar({
     return (
         <>
             <NavBarContainer>
-                <Title>Quick Image22</Title>
+                <Title>Quick Image</Title>
                 <SearchBarContainer>
                     <SearchButton type="button" value={search} onClick={handleClick}>
                         <SearchIcon />
