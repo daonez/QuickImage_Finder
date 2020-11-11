@@ -55,7 +55,9 @@ export const searchUnsplash = async (query, pages = 1) => {
 
 export const searchPixabay = async (query, pages = 1) => {
     try {
-        const res = await axios.get(`${PIXABAY_URL}&q=${query}&image_type=photo&page=${pages}`)
+        const res = await axios.get(
+            `${PIXABAY_URL}&q=${query}&image_type=photo&page=${pages}&safesearch=true`
+        )
         const { data } = res
 
         const { totalHits, hits } = data

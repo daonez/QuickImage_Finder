@@ -9,7 +9,7 @@ export default function App() {
     const [pages, setPages] = useState(1)
     const [totalPages, setTotalPages] = useState('')
     const [totalResults, setTotalResults] = useState('')
-    const [search, setSearch] = useState('cat')
+    const [search, setSearch] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     return (
         <div>

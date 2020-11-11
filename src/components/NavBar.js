@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { searchAll } from 'api'
 import { MdSearch } from 'react-icons/md'
@@ -12,13 +12,16 @@ export default function NavBar({
     setSearch,
     setIsLoading
 }) {
+    const [words, setWords] = useState(['dog', 'cat', 'people', 'shoes', 'hats', 'travel'])
+
     useEffect(() => {
         const landingPage = async () => {
             try {
                 setIsLoading(true)
-                setSearch(search)
+                const num = Math.floor(Math.random() * words.length)
+                setSearch(words[num])
                 setPages(1)
-                const imageResults = await searchAll('cat')
+                const imageResults = await searchAll(words[num])
                 const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
                 setTotalPages(totalPageRoundUp)
                 setTotalResults(imageResults.numOfResults)
