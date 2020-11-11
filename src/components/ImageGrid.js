@@ -120,21 +120,17 @@ const ImageList = styled.li`
 `
 
 const ImageParent = styled.div`
-    /* overflow: hidden;
+    overflow: hidden;
     width: 100%;
     height: 100%;
-    &:hover {
-        border: 1px solid black;
-    } */
 `
 const Images = styled.img`
-    /* max-width: 100%;
-    max-height: 100%; */
     width: 100%;
-    /* &:hover {
+    &:hover {
+        transform: scale(1.08);
+        transition: ease;
         cursor: pointer;
-        transform: scale(1.2);
-    }  */
+    }
 `
 
 const ArrowButton = styled.button`
@@ -156,6 +152,8 @@ const ArrowButton = styled.button`
         cursor: pointer;
         background: #d4d4d4;
         border: 1px solid;
+        transform: scale(1.08);
+        transition: ease;
     }
 `
 

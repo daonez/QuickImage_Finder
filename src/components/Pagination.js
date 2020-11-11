@@ -63,6 +63,7 @@ const ResultsContainer = styled.div`
 
 const Results = styled.h2`
     background-color: #f6f6f6;
+    padding: 0px 6px;
 `
 
 const ButtonContainer = styled.div`
@@ -92,6 +93,8 @@ const ArrowButton = styled.button`
         cursor: pointer;
         background: white;
         border: 1px solid;
+        transform: scale(1.08);
+        transition: ease;
     }
 `
 const LeftIcon = styled(MdKeyboardArrowLeft)`
