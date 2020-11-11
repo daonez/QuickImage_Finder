@@ -95,29 +95,28 @@ const ImageContainer = styled.div`
 `
 
 const ImageUL = styled.ul`
-    /* display: flex;
-    align-items: auto; */
-    /* height: 250px; */
-    /* padding: 0; */
-    /* width: 1000%;
-    /* display: flex;
-    flex-wrap: wrap;
-    padding: 10px 0;
-    margin: auto;
-    justify-content: center;
-    width: 100%; */
+    padding-left: 0;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    -webkit-column-gap: 1em;
+    -moz-column-gap: 1em;
+    column-gap: 1em;
+    @media only screen and (min-width: 900px) {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+    @media only screen and (min-width: 1200px) {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
 `
 
 const ImageList = styled.li`
-    /* display: flex;
     width: 100%;
-    align-items: center; */
-    /* width: 100%;
-    margin: -5px 5px 16px;
-    padding: 0;
-    @media only screen and (min-width: 600px) {
-        width: 35%;
-    } */
+    margin-bottom: 1em;
 `
 
 const ImageParent = styled.div`

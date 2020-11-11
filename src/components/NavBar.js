@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { searchAll } from 'api'
 import { MdSearch } from 'react-icons/md'
@@ -12,11 +12,28 @@ export default function NavBar({
     setSearch,
     setIsLoading
 }) {
-    const handleText = (e) => {
-        if (e.target.value) {
-            setSearch(e.target.value)
-            setIsLoading(true)
+    useEffect(() => {
+        const landingPage = async () => {
+            try {
+                setIsLoading(true)
+                setSearch(search)
+                setPages(1)
+                const imageResults = await searchAll('cat')
+                const totalPageRoundUp = Math.ceil(imageResults.numOfResults / 25)
+                setTotalPages(totalPageRoundUp)
+                setTotalResults(imageResults.numOfResults)
+                setImages(imageResults.images)
+                setIsLoading(false)
+            } catch (error) {
+                console.log(error)
+            }
         }
+        landingPage()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handleText = (e) => {
+        setSearch(e.target.value)
     }
 
     const handleImages = async (e) => {

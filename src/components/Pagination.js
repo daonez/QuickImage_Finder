@@ -11,8 +11,7 @@ export default function Pagination({
     pages,
     setTotalResults,
     search,
-    setIsLoading,
-    isLoading
+    setIsLoading
 }) {
     const handlePages = async (e) => {
         if (e.target.name === 'next') {
@@ -56,10 +55,10 @@ export default function Pagination({
 }
 
 const ResultsContainer = styled.div`
-    margin: 10px;
     display: flex;
     justify-content: space-between;
     background-color: #f6f6f6;
+    margin: 15px auto;
 `
 
 const Results = styled.h2`
