@@ -11,8 +11,7 @@ export default function Pagination({
     pages,
     setTotalResults,
     search,
-    setIsLoading,
-    isLoading
+    setIsLoading
 }) {
     const handlePages = async (e) => {
         if (e.target.name === 'next') {
@@ -56,14 +55,15 @@ export default function Pagination({
 }
 
 const ResultsContainer = styled.div`
-    margin: 10px;
     display: flex;
     justify-content: space-between;
     background-color: #f6f6f6;
+    margin: 15px auto;
 `
 
 const Results = styled.h2`
     background-color: #f6f6f6;
+    padding: 0px 6px;
 `
 
 const ButtonContainer = styled.div`
@@ -93,6 +93,8 @@ const ArrowButton = styled.button`
         cursor: pointer;
         background: white;
         border: 1px solid;
+        transform: scale(1.08);
+        transition: ease;
     }
 `
 const LeftIcon = styled(MdKeyboardArrowLeft)`

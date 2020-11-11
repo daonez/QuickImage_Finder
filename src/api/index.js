@@ -34,7 +34,7 @@ export const searchPageResults = async (query, page = 1) => {
 export const searchUnsplash = async (query, pages = 1) => {
     try {
         const res = await axios.get(
-            `${UNSPLASH_URL}&query=${query}&per_page=5&page=${pages}&orientation=squarish`
+            `${UNSPLASH_URL}&query=${query}&per_page=20&page=${pages}&orientation=squarish`
         )
         const { data } = res
 

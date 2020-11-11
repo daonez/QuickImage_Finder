@@ -9,7 +9,7 @@ export default function App() {
     const [pages, setPages] = useState(1)
     const [totalPages, setTotalPages] = useState('')
     const [totalResults, setTotalResults] = useState('')
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('cat')
     const [isLoading, setIsLoading] = useState(false)
     return (
         <div>
@@ -21,33 +21,24 @@ export default function App() {
                     setTotalResults={setTotalResults}
                     setTotalPages={setTotalPages}
                     setPages={setPages}
-                    pages={pages}
-                    totalPages={totalPages}
-                    totalResults={totalResults}
-                    isLoading={isLoading}
                     setIsLoading={setIsLoading}></NavBar>
                 <Pagination
                     pages={pages}
                     setTotalResults={setTotalResults}
-                    setTotalPages={setTotalPages}
                     setPages={setPages}
                     totalPages={totalPages}
                     totalResults={totalResults}
                     setImages={setImages}
                     search={search}
-                    setSearch={setSearch}
                     setIsLoading={setIsLoading}
-                    isLoading={isLoading}
                 />
                 <ImageGrid
                     images={images}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     search={search}
-                    setSearch={setSearch}
                     setImages={setImages}
                     setTotalResults={setTotalResults}
-                    setTotalPages={setTotalPages}
                     setPages={setPages}
                     pages={pages}
                     totalPages={totalPages}
@@ -56,15 +47,12 @@ export default function App() {
                 <Pagination
                     pages={pages}
                     setTotalResults={setTotalResults}
-                    setTotalPages={setTotalPages}
                     setPages={setPages}
                     totalPages={totalPages}
                     totalResults={totalResults}
                     setImages={setImages}
                     search={search}
-                    setSearch={setSearch}
                     setIsLoading={setIsLoading}
-                    isLoading={isLoading}
                 />
             </PageContainer>
         </div>
