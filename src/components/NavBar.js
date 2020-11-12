@@ -12,13 +12,13 @@ export default function NavBar({
     setSearch,
     setIsLoading
 }) {
-    const [words, setWords] = useState(['dog', 'cat', 'people', 'shoes', 'hats', 'travel'])
+    const words = ['dog', 'cat', 'people', 'shoes', 'hats', 'travel']
+    const num = Math.floor(Math.random() * words.length)
 
     useEffect(() => {
         const landingPage = async () => {
             try {
                 setIsLoading(true)
-                const num = Math.floor(Math.random() * words.length)
                 setSearch(words[num])
                 setPages(1)
                 const imageResults = await searchAll(words[num])
