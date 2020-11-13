@@ -76,7 +76,7 @@ const Results = styled.h3`
     font-size: 18px;
     @media only screen and (max-width: 500px) {
         background-color: #f6f6f6;
-        padding: 27px 2px;
+        padding: 35px 9px;
         margin: 0;
         text-align: center;
         font-weight: 400;
@@ -93,19 +93,20 @@ const ResultsText = styled.span`
 const ButtonContainer = styled.div`
     display: flex;
     background-color: #f6f6f6;
+    margin: auto;
     @media only screen and (max-width: 500px) {
         background-color: #f6f6f6;
-
         text-align: center;
         font-weight: 400;
         font-size: 12px;
     }
 `
 const Pages = styled.p`
-    padding: 26px 10px;
+    padding: 35px 9px;
     background-color: #f6f6f6;
     font-size: 17px;
     font-weight: 400;
+    width: 100%;
     @media only screen and (max-width: 500px) {
         background-color: #f6f6f6;
         text-align: center;
