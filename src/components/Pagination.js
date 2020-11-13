@@ -93,7 +93,6 @@ const ResultsText = styled.span`
 const ButtonContainer = styled.div`
     display: flex;
     background-color: #f6f6f6;
-    margin: auto;
     @media only screen and (max-width: 500px) {
         background-color: #f6f6f6;
         text-align: center;
