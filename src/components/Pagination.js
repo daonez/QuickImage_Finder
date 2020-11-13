@@ -71,14 +71,13 @@ const Results = styled.h3`
     background-color: #f6f6f6;
     padding: 10px 6px;
     margin: 0 none;
-    text-align: center;
+    text-align: left;
     font-weight: 400;
     font-size: 18px;
     @media only screen and (max-width: 500px) {
         background-color: #f6f6f6;
         padding: 35px 9px;
         margin: 0;
-        text-align: center;
         font-weight: 400;
         font-size: 14px;
     }
