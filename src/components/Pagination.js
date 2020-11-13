@@ -36,7 +36,9 @@ export default function Pagination({
     }
     return (
         <ResultsContainer>
-            <Results value={totalResults}>Results: {totalResults}</Results>
+            <Results value={totalResults}>
+                Found: {totalResults} results of {search}
+            </Results>
             <ButtonContainer>
                 {pages > 1 && (
                     <ArrowButton type="button" name="prev" onClick={handlePages} value={pages}>

@@ -16,7 +16,7 @@ export default function NavBar({
     const num = Math.floor(Math.random() * words.length)
 
     useEffect(() => {
-        const landingPage = async () => {
+        const searchRandomImage = async () => {
             try {
                 setIsLoading(true)
                 setSearch(words[num])
@@ -31,7 +31,7 @@ export default function NavBar({
                 console.log(error)
             }
         }
-        landingPage()
+        searchRandomImage()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
