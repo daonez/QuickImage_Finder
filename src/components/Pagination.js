@@ -37,7 +37,7 @@ export default function Pagination({
     return (
         <ResultsContainer>
             <Results>
-                Found <ResultsText>{totalResults} </ResultsText> Results of
+                Found <ResultsText>{totalResults} </ResultsText> results for
                 <ResultsText>'{search}'</ResultsText>
             </Results>
             <ButtonContainer>
