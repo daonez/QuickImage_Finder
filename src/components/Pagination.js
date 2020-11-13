@@ -47,7 +47,7 @@ export default function Pagination({
                     </ArrowButton>
                 )}
                 <Pages>
-                    TotalPages:{' '}
+                    Pages:
                     <PageText>
                         {pages}/ {totalPages}
                     </PageText>
@@ -106,11 +106,13 @@ const Pages = styled.p`
     font-size: 17px;
     font-weight: 400;
     width: 100%;
+    text-align: center;
     @media only screen and (max-width: 500px) {
         background-color: #f6f6f6;
         text-align: center;
         font-weight: 400;
         font-size: 12px;
+        margin: auto;
     }
 `
 
