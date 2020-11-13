@@ -120,28 +120,36 @@ const SearchIcon = styled(MdSearch)`
 const InputContainer = styled.div`
     display: flex;
     width: 100%;
+    @media only screen and (max-width: 500px) {
+        width: 88%;
+    }
 `
 const Input = styled.input`
     display: flex;
     border-radius: 40px;
-    width: 72%;
+    width: 50%;
     height: 40px;
-    margin: 20px;
+    margin: 20px 0;
     background: #eeeeee;
     text-indent: 50px;
     font-weight: 300;
     font-family: inherit;
+    border: none;
+    box-shadow: none;
     &:focus {
         outline: 0;
     }
-    @media only screen and (min-width: 600px) {
-        width: 50%;
+    @media only screen and (max-width: 1200px) {
+        width: 80%;
+    }
+    @media only screen and (max-width: 500px) {
+        width: 88%;
     }
 `
 const SearchButton = styled.button`
     border: none;
     position: relative;
-    left: 69px;
+    left: 47px;
     background: #eeeeee;
     color: grey;
     height: 0px;

@@ -9,6 +9,9 @@ html {
   background:#FFFFFF;
   font-family: 'Ubuntu',sans-serif;
 }
+p{
+  margin:0;
+}
 
 `
 

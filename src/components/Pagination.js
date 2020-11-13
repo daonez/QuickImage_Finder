@@ -36,8 +36,9 @@ export default function Pagination({
     }
     return (
         <ResultsContainer>
-            <Results value={totalResults}>
-                Found: {totalResults} results of {search}
+            <Results>
+                Found <ResultsText>{totalResults} </ResultsText> Results of
+                <ResultsText>'{search}'</ResultsText>
             </Results>
             <ButtonContainer>
                 {pages > 1 && (
@@ -45,8 +46,11 @@ export default function Pagination({
                         <LeftIcon />
                     </ArrowButton>
                 )}
-                <Pages value={pages}>
-                    Pages {pages}/ {totalPages}
+                <Pages>
+                    TotalPages:{' '}
+                    <PageText>
+                        {pages}/ {totalPages}
+                    </PageText>
                 </Pages>
                 <ArrowButton type="button" name="next" onClick={handlePages} value={pages}>
                     <RightIcon />
@@ -63,20 +67,56 @@ const ResultsContainer = styled.div`
     margin: 15px auto;
 `
 
-const Results = styled.h2`
+const Results = styled.h3`
+    background-color: #f6f6f6;
+    padding: 10px 6px;
+    margin: 0 none;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+    @media only screen and (max-width: 500px) {
+        background-color: #f6f6f6;
+        padding: 27px 2px;
+        margin: 0;
+        text-align: center;
+        font-weight: 400;
+        font-size: 14px;
+    }
+`
+
+const ResultsText = styled.span`
     background-color: #f6f6f6;
     padding: 0px 6px;
+    font-weight: 700;
 `
 
 const ButtonContainer = styled.div`
     display: flex;
     background-color: #f6f6f6;
+    @media only screen and (max-width: 500px) {
+        background-color: #f6f6f6;
+
+        text-align: center;
+        font-weight: 400;
+        font-size: 12px;
+    }
 `
 const Pages = styled.p`
-    padding: 9px;
+    padding: 26px 10px;
     background-color: #f6f6f6;
     font-size: 17px;
     font-weight: 400;
+    @media only screen and (max-width: 500px) {
+        background-color: #f6f6f6;
+        text-align: center;
+        font-weight: 400;
+        font-size: 15px;
+    }
+`
+
+const PageText = styled.span`
+    background-color: #f6f6f6;
+    font-weight: 700;
 `
 
 const ArrowButton = styled.button`
@@ -98,6 +138,12 @@ const ArrowButton = styled.button`
         transform: scale(1.08);
         transition: ease;
     }
+    @media only screen and (max-width: 500px) {
+        background-color: #f6f6f6;
+        text-align: center;
+        font-weight: 400;
+        font-size: 12px;
+    }
 `
 const LeftIcon = styled(MdKeyboardArrowLeft)`
     pointer-events: none;
@@ -106,6 +152,12 @@ const LeftIcon = styled(MdKeyboardArrowLeft)`
     border: none;
     border-radius: 29px;
     background: white;
+    @media only screen and (max-width: 500px) {
+        background: white;
+        text-align: center;
+        font-weight: 400;
+        font-size: 22px;
+    }
 `
 const RightIcon = styled(MdKeyboardArrowRight)`
     pointer-events: none;
@@ -114,4 +166,10 @@ const RightIcon = styled(MdKeyboardArrowRight)`
     border: none;
     border-radius: 29px;
     background: white;
+    @media only screen and (max-width: 500px) {
+        background: white;
+        text-align: center;
+        font-weight: 400;
+        font-size: 22px;
+    }
 `
