@@ -111,7 +111,7 @@ const Pages = styled.p`
         background-color: #f6f6f6;
         text-align: center;
         font-weight: 400;
-        font-size: 12px;
+        font-size: 11px;
         margin: auto;
     }
 `
